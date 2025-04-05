@@ -10,9 +10,17 @@
         <version>0.3.0</version>
     </parent>
 
-    <artifactId>rtp-battle-processor-core</artifactId>
+    <artifactId>core</artifactId>
 
     <properties>
-
+        <jython.version>2.7.4</jython.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.python</groupId>
+            <artifactId>jython-slim</artifactId>
+            <version>${jython.version}</version>
+        </dependency>
+    </dependencies>
 </project>

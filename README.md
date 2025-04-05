@@ -1,2 +1,2 @@
 # battle-processor
-Internal library for calculating battle turn results by executing Python scripts from Java using Jython
+A multimodule repo for PVE and PVP services
