@@ -1,16 +1,26 @@
 from com.github.nnbros.rtp.battleprocessor.core import DuelParticipants, Combatant
 
+from core.src.main.resources.scripts.calculate_damage import calculate_damage
+
+
+import math
+
+from core.src.main.resources.scripts.monsterAI import monster_ai
+from core.src.main.resources.scripts.skill_dictionary import skillDictionary
+
 
 class CombatantPy(Combatant):
-    def __init__(self, entityName, type, hp, atk, def_, armyName, armyType, armyHp, armyAtk, armyDef, armyQuantity,
+    def __init__(self, entityName, type, maxHp, hp, atk, def_, armyName, armyType, armyMaxHp, armyHp, armyAtk, armyDef, armyQuantity,
                  isCharacter, activeSkill, receivedDmg, receivedArmyDmg):
         self._entityName = entityName
         self._type = type
+        self._maxHp = maxHp # Нужно добавить в Джаву
         self._hp = hp
         self._atk = atk
         self._def = def_  # Avoid using "def" since it's a reserved keyword
         self._armyName = armyName
         self._armyType = armyType
+        self._armyMaxHp = armyMaxHp # Нужно добавить в Джаву
         self._armyHp = armyHp
         self._armyAtk = armyAtk
         self._armyDef = armyDef
@@ -26,6 +36,9 @@ class CombatantPy(Combatant):
     def getType(self):
         return self._type
 
+    def getMaxHp(self):
+        return self._maxHp
+
     def getHp(self):
         return self._hp
 
@@ -40,6 +53,9 @@ class CombatantPy(Combatant):
 
     def getArmyType(self):
         return self._armyType
+
+    def getArmyMaxHp(self):
+        return self._armyMaxHp
 
     def getArmyHp(self):
         return self._armyHp
@@ -110,6 +126,9 @@ class CombatantPy(Combatant):
     def setReceivedArmyDmg(self, value):
         self._receivedArmyDmg = value
 
+    def getAliveSoldiers(self):
+        return math.ceil(self._armyQuantity * self._armyHp / self._armyMaxHp) if self._armyQuantity else 0
+
 
 class DuelParticipantsPy(DuelParticipants):
     def __init__(self, firstCombatant, secondCombatant):
@@ -130,11 +149,10 @@ class DuelParticipantsPy(DuelParticipants):
 
 
 def calculate_duel_turn(duel_participants):
-    # Put your code here
-    # e.g.:
-    # def current_hp = duel_participants.getFirstCombatant().getHp() - duel_participants.getSecondCombatant().getAtk()
-    # duel_participants.getFirstCombatant().setHp(current_hp)
-    duel_participants.getFirstCombatant().setHp(0)
-    duel_participants.getSecondCombatant().setHp(2000)
-
+    if not duel_participants.getSecondCombatant.getIsCharacter():
+        monster_ai(duel_participants)
+    calculate_damage(duel_participants, skillDictionary[duel_participants.getFirstCombatant.getActiveSkill()],
+                     skillDictionary[duel_participants.getSecondCombatant.getActiveSkill()])
+#    duel_participants.getFirstCombatant().setHp(0)
+#    duel_participants.getSecondCombatant().setHp(2000)
     return duel_participants
