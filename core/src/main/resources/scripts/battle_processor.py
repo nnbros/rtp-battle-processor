@@ -167,6 +167,4 @@ def calculate_duel_turn(duel_participants):
         monster_ai(duel_participants)
     calculate_damage(duel_participants, skillDictionary[duel_participants.getFirstCombatant.getActiveSkill()],
                      skillDictionary[duel_participants.getSecondCombatant.getActiveSkill()])
-#    duel_participants.getFirstCombatant().setHp(0)
-#    duel_participants.getSecondCombatant().setHp(2000)
     return duel_participants
