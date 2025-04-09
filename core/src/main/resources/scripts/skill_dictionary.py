@@ -18,11 +18,22 @@ skillDictionary = {
     "Full Defense": skill(0, 3, 0, 0, 0, 0, 0.5, 0.5),
     "Lead": skill(1, 1, 1, 0, 0, 0, 0.5, 0.5),
     "Battle Readiness": skill(1, 1, 1, 0, 0, 0, 0.5, 0.5),
+    # Классовые
     # Воин
     "Duel": skill(1, 2, 0, 0, 3, 1, 0.75, 0.5),
     "Cleave": skill(2, 1, 0, 0, 3, 1, 0.25, 0.5),
     # Плут
     "Elimination": skill(2, 1, 0, 0, 0, 1, 1, 0.5),
     "Fire Bomb": skill(2, 1, 0, 0, 0, 1, 0.25, 0.5),
+    # Армия
+    # Кавалерия
+    "Onslaught ": skill(1, 0, 2, 0, 2, 2, 0.5, 0.5),
+    "Raid": skill(1, 0, 2, 0, 2, 2, 0.5, 0.5),
+    # Мечники
+    "Iron Tide": skill(1, 0, 1, 1, 3, 2, 0.5, 0.5),
+    "Unearth": skill(1, 1, 1, 0, 3, 2, 0.5, 0.5),
+    # Копейщики
+    "Hold the Line": skill(0, 1, 0, 2, 1, 2, 0.5, 0.5),
+    "Make the Way": skill(2, 0, 0, 1, 1, 2, 0.5, 0.5),
     # монстры
 }
