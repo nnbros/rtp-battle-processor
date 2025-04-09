@@ -11,7 +11,7 @@ from core.src.main.resources.scripts.skill_dictionary import skillDictionary
 
 class CombatantPy(Combatant):
     def __init__(self, entityName, type, maxHp, hp, atk, def_, armyName, armyType, armyMaxHp, armyHp, armyAtk, armyDef, armyQuantity,
-                 isCharacter, activeSkill, receivedDmg, receivedArmyDmg):
+                 isCharacter, activeSkill, advantageBonus, advantageArmyBonus, receivedDmg, receivedArmyDmg):
         self._entityName = entityName
         self._type = type
         self._maxHp = maxHp # Нужно добавить в Джаву
@@ -27,6 +27,8 @@ class CombatantPy(Combatant):
         self._armyQuantity = armyQuantity
         self._isCharacter = isCharacter
         self._activeSkill = activeSkill
+        self._advantageBonus = advantageBonus
+        self._advantageArmyBonus = advantageArmyBonus
         self._receivedDmg = receivedDmg
         self._receivedArmyDmg = receivedArmyDmg
 
@@ -75,6 +77,12 @@ class CombatantPy(Combatant):
     def getActiveSkill(self):
         return self._activeSkill
 
+    def getAdvantageBonus(self):
+        return self._advantageBonus
+
+    def getAdvantageArmyBonus(self):
+        return self._advantageArmyBonus
+
     def getReceivedDmg(self):
         return self._receivedDmg
 
@@ -119,6 +127,12 @@ class CombatantPy(Combatant):
 
     def setActiveSkill(self, value):
         self._activeSkill = value
+
+    def setAdvantageBonus(self, value):
+        self._advantageBonus = value
+
+    def setAdvantageArmyBonus(self, value):
+        self._advantageArmyBonus = value
 
     def setReceivedDmg(self, value):
         self._receivedDmg = value

@@ -14,41 +14,41 @@ def calculate_damage(duel_participants, skill1, skill2):
 
     if duel_participants.getSecondCombatant.getArmyHp() == 0:
         h2_dmg = max(0, int(
-            h1_atk * (1 + skill1.typeBonus) if skill1.typeOwner == 1 and duel_participants.getSecondCombatant.getType == skill1.type else h1_atk +
-            a1_atk * (1 + skill1.typeBonus) if skill1.typeOwner == 2 and duel_participants.getSecondCombatant.getType == skill1.type else a1_atk
+            h1_atk * (1 + duel_participants.getFirstCombatant.getAdvantageBonus) if skill1.typeOwner == 1 and duel_participants.getSecondCombatant.getType == skill1.type else h1_atk +
+            a1_atk * (1 + duel_participants.getFirstCombatant.getAdvantageArmyBonus) if skill1.typeOwner == 2 and duel_participants.getSecondCombatant.getType == skill1.type else a1_atk
         ) - h2_def)
         a2_dmg = 0
     else:
         a2_dmg = max(0, int(
-            (h1_atk * (1 + skill1.typeBonus) if skill1.typeOwner == 1 and duel_participants.getSecondCombatant.getArmyType == skill1.type else h1_atk)
+            (h1_atk * (1 + duel_participants.getFirstCombatant.getAdvantageBonus) if skill1.typeOwner == 1 and duel_participants.getSecondCombatant.getArmyType == skill1.type else h1_atk)
             * (1 - skill1.heroDamageDistribution) +
-            (a1_atk * (1 + skill1.typeBonus) if skill1.typeOwner == 2 and duel_participants.getSecondCombatant.getArmyType == skill1.type else a1_atk)
+            (a1_atk * (1 + duel_participants.getFirstCombatant.getAdvantageArmyBonus) if skill1.typeOwner == 2 and duel_participants.getSecondCombatant.getArmyType == skill1.type else a1_atk)
             * (1 - skill1.armyDamageDistribution)
         ) - a2_def)
         h2_dmg = max(0, int(
-            (h1_atk * (1 + skill1.typeBonus) if skill1.typeOwner == 1 and duel_participants.getSecondCombatant.getArmyType == skill1.type else h1_atk)
+            (h1_atk * (1 + duel_participants.getFirstCombatant.getAdvantageBonus) if skill1.typeOwner == 1 and duel_participants.getSecondCombatant.getArmyType == skill1.type else h1_atk)
             * (1 - skill1.heroDamageDistribution) +
-            (a1_atk * (1 + skill1.typeBonus) if skill1.typeOwner == 2 and duel_participants.getSecondCombatant.getArmyType == skill1.type else a1_atk)
+            (a1_atk * (1 + duel_participants.getFirstCombatant.getAdvantageArmyBonus) if skill1.typeOwner == 2 and duel_participants.getSecondCombatant.getArmyType == skill1.type else a1_atk)
             * (1 - skill1.armyDamageDistribution)
         ) - h2_def)
 
     if duel_participants.getFirstCombatant.getArmyHp() == 0:
         h1_dmg = max(0, int(
-            h2_atk * (1 + skill2.typeBonus) if skill2.typeOwner == 1 and duel_participants.getFirstCombatant.getType == skill2.type else h2_atk +
-            a2_atk * (1 + skill2.typeBonus) if skill2.typeOwner == 2 and duel_participants.getFirstCombatant.getType == skill2.type else a2_atk
+            h2_atk * (1 + duel_participants.getSecondCombatant.getAdvantageBonus) if skill2.typeOwner == 1 and duel_participants.getFirstCombatant.getType == skill2.type else h2_atk +
+            a2_atk * (1 + duel_participants.getSecondCombatant.getAdvantageArmyBonus) if skill2.typeOwner == 2 and duel_participants.getFirstCombatant.getType == skill2.type else a2_atk
         ) - h1_def)
         a1_dmg = 0
     else:
         a1_dmg = max(0, int(
-            (h2_atk * (1 + skill2.typeBonus) if skill2.typeOwner == 1 and duel_participants.getFirstCombatant.getArmyType == skill2.type else h2_atk)
+            (h2_atk * (1 + duel_participants.getSecondCombatant.getAdvantageBonus) if skill2.typeOwner == 1 and duel_participants.getFirstCombatant.getArmyType == skill2.type else h2_atk)
             * (1 - skill2.heroDamageDistribution) +
-            (a2_atk * (1 + skill2.typeBonus) if skill2.typeOwner == 2 and duel_participants.getFirstCombatant.getArmyType == skill2.type else a2_atk)
+            (a2_atk * (1 + duel_participants.getSecondCombatant.getAdvantageArmyBonus) if skill2.typeOwner == 2 and duel_participants.getFirstCombatant.getArmyType == skill2.type else a2_atk)
             * (1 - skill2.armyDamageDistribution)
         ) - a1_def)
         h1_dmg = max(0, int(
-            (h2_atk * (1 + skill2.typeBonus) if skill2.typeOwner == 1 and duel_participants.getSecondCombatant.getArmyType == skill2.type else h2_atk)
+            (h2_atk * (1 + duel_participants.getSecondCombatant.getAdvantageBonus) if skill2.typeOwner == 1 and duel_participants.getSecondCombatant.getArmyType == skill2.type else h2_atk)
             * (1 - skill2.heroDamageDistribution) +
-            (a2_atk * (1 + skill2.typeBonus) if skill2.typeOwner == 2 and duel_participants.getSecondCombatant.getArmyType == skill2.type else a2_atk)
+            (a2_atk * (1 + duel_participants.getSecondCombatant.getAdvantageArmyBonus) if skill2.typeOwner == 2 and duel_participants.getSecondCombatant.getArmyType == skill2.type else a2_atk)
             * (1 - skill2.armyDamageDistribution)
         ) - h1_def)
 
