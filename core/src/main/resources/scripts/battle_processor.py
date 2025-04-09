@@ -10,25 +10,25 @@ from core.src.main.resources.scripts.skill_dictionary import skillDictionary
 
 
 class CombatantPy(Combatant):
-    def __init__(self, entityName, type, maxHp, hp, atk, def_, armyName, armyType, armyMaxHp, armyHp, armyAtk, armyDef, armyQuantity,
-                 isCharacter, activeSkill, advantageBonus, advantageArmyBonus, receivedDmg, receivedArmyDmg):
+    def __init__(self, entityName, type, maxHp, hp, atk, def_, armyName, armyType, armyMaxHp, armyHp, armyAtk, armyDef,
+                 armyQuantity, isCharacter, activeSkill, advantageBonus, advantageArmyBonus, receivedDmg, receivedArmyDmg):
         self._entityName = entityName
         self._type = type
-        self._maxHp = maxHp # Нужно добавить в Джаву
+        self._maxHp = maxHp  # Нужно добавить в Джаву
         self._hp = hp
         self._atk = atk
         self._def = def_  # Avoid using "def" since it's a reserved keyword
         self._armyName = armyName
         self._armyType = armyType
-        self._armyMaxHp = armyMaxHp # Нужно добавить в Джаву
+        self._armyMaxHp = armyMaxHp  # Нужно добавить в Джаву
         self._armyHp = armyHp
         self._armyAtk = armyAtk
         self._armyDef = armyDef
         self._armyQuantity = armyQuantity
         self._isCharacter = isCharacter
         self._activeSkill = activeSkill
-        self._advantageBonus = advantageBonus
-        self._advantageArmyBonus = advantageArmyBonus
+        self._advantageBonus = advantageBonus  # Нужно добавить в Джаву
+        self._advantageArmyBonus = advantageArmyBonus  # Нужно добавить в Джаву
         self._receivedDmg = receivedDmg
         self._receivedArmyDmg = receivedArmyDmg
 
