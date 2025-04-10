@@ -2,7 +2,7 @@ import random
 
 
 def ai_fail(_):
-    return "full_defense"
+    return "default"
 
 
 def ai_bandit_leader(last_skill):
