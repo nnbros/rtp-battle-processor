@@ -1,32 +1,31 @@
-from com.github.nnbros.rtp.battleprocessor.core import DuelParticipants, Combatant
-
-from core.src.main.resources.scripts.calculate_damage import calculate_damage
-
-
+# coding=utf-8
 import math
 
+
+from com.github.nnbros.rtp.battleprocessor.core import DuelParticipants, Combatant
+from core.src.main.resources.scripts.calculate_damage import calculate_damage
 from core.src.main.resources.scripts.monsterAI import monster_ai
 from core.src.main.resources.scripts.skill_dictionary import skillDictionary
 
 
 class CombatantPy(Combatant):
-    def __init__(self, entityName, type, maxHp, hp, atk, def_, armyName, armyType, armyMaxHp, armyHp, armyAtk, armyDef,
+    def __init__(self, entityName, archetype, maxHp, hp, atk, def_, armyName, armyArchetype, armyMaxHp, armyHp, armyAtk, armyDef,
                  armyQuantity, isCharacter, activeSkill, advantageBonus, advantageArmyBonus, receivedDmg, receivedArmyDmg):
         self._entityName = entityName
-        self._type = type
+        self._archetype = archetype  # Нужно поменять в Джаве из type, так как мы решили поменять везде type на archetype
         self._maxHp = maxHp  # Нужно добавить в Джаву
         self._hp = hp
         self._atk = atk
         self._def = def_  # Avoid using "def" since it's a reserved keyword
         self._armyName = armyName
-        self._armyType = armyType
+        self._armyArchetype = armyArchetype # Нужно поменять в Джаве из type, так как мы решили поменять везде type на archetype
         self._armyMaxHp = armyMaxHp  # Нужно добавить в Джаву
         self._armyHp = armyHp
         self._armyAtk = armyAtk
         self._armyDef = armyDef
         self._armyQuantity = armyQuantity
         self._isCharacter = isCharacter
-        self._activeSkill = activeSkill
+        self.__activeSkill = activeSkill
         self._advantageBonus = advantageBonus  # Нужно добавить в Джаву
         self._advantageArmyBonus = advantageArmyBonus  # Нужно добавить в Джаву
         self._receivedDmg = receivedDmg
@@ -35,8 +34,8 @@ class CombatantPy(Combatant):
     def getEntityName(self):
         return self._entityName
 
-    def getType(self):
-        return self._type
+    def getArchetype(self):
+        return self._archetype
 
     def getMaxHp(self):
         return self._maxHp
@@ -53,8 +52,8 @@ class CombatantPy(Combatant):
     def getArmyName(self):
         return self._armyName
 
-    def getArmyType(self):
-        return self._armyType
+    def getArmyArchetype(self):
+        return self._armyArchetype
 
     def getArmyMaxHp(self):
         return self._armyMaxHp
@@ -71,11 +70,11 @@ class CombatantPy(Combatant):
     def getArmyQuantity(self):
         return self._armyQuantity
 
-    def getIsCharacter(self):
+    def isCharacter(self):
         return self._isCharacter
 
     def getActiveSkill(self):
-        return self._activeSkill
+        skillDictionary[self.__activeSkill]
 
     def getAdvantageBonus(self):
         return self._advantageBonus
@@ -92,8 +91,8 @@ class CombatantPy(Combatant):
     def setEntityName(self, value):
         self._entityName = value
 
-    def setType(self, value):
-        self._type = value
+    def setArchetype(self, value):
+        self._archetype = value
 
     def setHp(self, value):
         self._hp = value
@@ -107,8 +106,8 @@ class CombatantPy(Combatant):
     def setArmyName(self, value):
         self._armyName = value
 
-    def setArmyType(self, value):
-        self._armyType = value
+    def setArmyArchetype(self, value):
+        self._armyArchetype = value
 
     def setArmyHp(self, value):
         self._armyHp = value
@@ -126,7 +125,7 @@ class CombatantPy(Combatant):
         self._isCharacter = value
 
     def setActiveSkill(self, value):
-        self._activeSkill = value
+        self.__activeSkill = value
 
     def setAdvantageBonus(self, value):
         self._advantageBonus = value
@@ -141,7 +140,7 @@ class CombatantPy(Combatant):
         self._receivedArmyDmg = value
 
     def getAliveSoldiers(self):
-        return math.ceil(self._armyQuantity * self._armyHp / self._armyMaxHp) if self._armyQuantity else 0
+        return math.ceil(self._armyQuantity * self._armyHp / self._armyMaxHp) if self._armyMaxHp else 0
 
 
 class DuelParticipantsPy(DuelParticipants):
@@ -163,8 +162,8 @@ class DuelParticipantsPy(DuelParticipants):
 
 
 def calculate_duel_turn(duel_participants):
-    if not duel_participants.getSecondCombatant.getIsCharacter():
-        monster_ai(duel_participants)
-    calculate_damage(duel_participants, skillDictionary[duel_participants.getFirstCombatant.getActiveSkill()],
-                     skillDictionary[duel_participants.getSecondCombatant.getActiveSkill()])
-    return duel_participants
+    if not duel_participants.getSecondCombatant().isCharacter():
+        duel_participants.getSecondCombatant().setActiveSkill(monster_ai(duel_participants.getSecondCombatant()))
+
+    duel_participants.setSecondCombatant(calculate_damage(duel_participants.getFirstCombatant(), duel_participants.getSecondCombatant()))
+    duel_participants.setFirstCombatant(calculate_damage(duel_participants.getSecondCombatant(), duel_participants.getFirstCombatant()))
