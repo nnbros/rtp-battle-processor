@@ -23,4 +23,3 @@ def ai_slime(last_skill):
     #     return "tentacle2"
     # else:
     #     return random.choice(["splashing1", "tentacle1", "slime_jab"])
-
