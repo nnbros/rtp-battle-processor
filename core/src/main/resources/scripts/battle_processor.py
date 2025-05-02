@@ -74,7 +74,7 @@ class CombatantPy(Combatant):
         return self._isCharacter
 
     def getActiveSkill(self):
-        skillDictionary[self.__activeSkill]
+        return skillDictionary[self.__activeSkill]
 
     def getAdvantageBonus(self):
         return self._advantageBonus
