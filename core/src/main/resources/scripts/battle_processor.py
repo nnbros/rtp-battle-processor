@@ -4,7 +4,7 @@ import math
 
 from com.github.nnbros.rtp.battleprocessor.core import DuelParticipants, Combatant
 from core.src.main.resources.scripts.calculate_damage import calculate_damage
-from core.src.main.resources.scripts.monsterAI import monster_ai
+from core.src.main.resources.scripts.monster_list import monster_ai
 from core.src.main.resources.scripts.skill_dictionary import skillDictionary
 
 
