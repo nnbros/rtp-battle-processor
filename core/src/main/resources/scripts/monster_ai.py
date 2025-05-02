@@ -1,17 +1,6 @@
 import random
 
 
-def monster_ai(monster):
-    last_skill = monster.getActiveSkill()
-    dispatch = {
-        "bandit_leader": ai_bandit_leader,
-        "slime": ai_slime
-    }
-    handler = dispatch.get(monster.getEntityName(), ai_default)
-    new_skill = handler(last_skill)
-    return new_skill
-
-
 def ai_default(_):
     return "default"
 
@@ -34,3 +23,4 @@ def ai_slime(last_skill):
     #     return "tentacle2"
     # else:
     #     return random.choice(["splashing1", "tentacle1", "slime_jab"])
+
