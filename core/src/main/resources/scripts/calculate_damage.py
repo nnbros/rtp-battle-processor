@@ -38,4 +38,3 @@ def calculate_damage(attacker, defender):
 
     defender.setReceivedDmg(defender_hero_damage_taken)
     defender.setReceivedArmyDmg(defender_army_damage_taken)
-    return defender

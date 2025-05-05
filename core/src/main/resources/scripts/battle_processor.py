@@ -4,7 +4,7 @@ import math
 
 from com.github.nnbros.rtp.battleprocessor.core import DuelParticipants, Combatant
 from core.src.main.resources.scripts.calculate_damage import calculate_damage
-from core.src.main.resources.scripts.monster_list import monster_ai
+from core.src.main.resources.scripts.monster_list import choose_monster_skill
 from core.src.main.resources.scripts.skill_dictionary import skillDictionary
 
 
@@ -162,8 +162,15 @@ class DuelParticipantsPy(DuelParticipants):
 
 
 def calculate_duel_turn(duel_participants):
-    if not duel_participants.getSecondCombatant().isCharacter():
-        duel_participants.getSecondCombatant().setActiveSkill(monster_ai(duel_participants.getSecondCombatant()))
+    combatant1 = duel_participants.getFirstCombatant()
+    combatant2 = duel_participants.getSecondCombatant()
 
-    duel_participants.setSecondCombatant(calculate_damage(duel_participants.getFirstCombatant(), duel_participants.getSecondCombatant()))
-    duel_participants.setFirstCombatant(calculate_damage(duel_participants.getSecondCombatant(), duel_participants.getFirstCombatant()))
+    for combatant in [combatant1, combatant2]:
+        if not combatant.isCharacter():
+            combatant.setActiveSkill(choose_monster_skill(combatant))
+
+    combatant2 = calculate_damage(combatant1, combatant2)
+    combatant1 = calculate_damage(combatant2, combatant1)
+
+    duel_participants.setFirstCombatant(combatant1)
+    duel_participants.setSecondCombatant(combatant2)

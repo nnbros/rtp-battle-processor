@@ -1,7 +1,7 @@
 from core.src.main.resources.scripts.monsterAI import *
 
 
-def monster_ai(monster):
+def choose_monster_skill(monster):
     last_skill = monster.getActiveSkill()
     handler = monster_bd.get(monster.getEntityName(), ai_default)
     new_skill = handler(last_skill)
