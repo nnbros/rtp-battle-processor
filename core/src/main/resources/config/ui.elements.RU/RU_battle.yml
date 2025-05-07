@@ -1,0 +1,115 @@
+battle:
+  - id: battleStartOpponents
+    text: "
+▰▰▰▰▰▰ ⚔️ Начинается бой 🛡 ▰▰▰▰▰▰\n
+🔴 ${combatant1Name}[${combatant1Level}] (${combatant1Type}${combatant1Class}[${combatant1ClassLevel}])\n
+❤️${combatant1HP}/${combatant1MaxHP} ⚔️${combatant1Atk} 🛡${combatant1Def}\n
+[${combatant1AliveArmyType}] ${combatant1ArmyName}[${combatant1ArmyTier}]\n
+💖${combatant1ArmyHP}/${combatant1ArmyMaxHP} 🪓${combatant1ArmyAtk} 🪖${combatant1ArmyDef}\n
+🆚\n
+🔵 ${combatant2Name}[${combatant2Level}] (${combatant2Type}${combatant2Class}[${combatant2ClassLevel}])\n
+❤️${combatant2HP}/${combatant2MaxHP} ⚔️${combatant2Atk} 🛡${combatant2Def}\n
+[${combatant2AliveArmyType}] ${combatant2ArmyName}[${combatant2ArmyTier}]\n
+💖${combatant2ArmyHP}/${combatant2ArmyMaxHP} 🪓${combatant2ArmyAtk} 🪖${combatant2ArmyDef}
+"
+
+  - id: battleTurnResult
+    text: "
+▰▰▰▰▰▰ 🌀 Ход ${turnLastNumber}▰▰▰▰▰▰\n
+🔴 ${combatant1Type}${combatant1Name} [${combatant1AliveArmyType}] командует:\n 
+${combatant1SkillLast}\n
+🔵 ${combatant2Type}${combatant2Name} [${combatant2AliveArmyType}] командует:\n 
+${combatant2SkillLast}\n
+▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰\n
+🔴 ${combatant1Type}${combatant1Name}  💥-${combatant1HeroDamageTaken} ❤️${combatant1HP}/${combatant1MaxHP}\n
+[${combatant1AliveArmyTypeAfter}] 💥-${combatant1ArmyDamageTaken} 💖${combatant1ArmyHP}/${combatant1ArmyMaxHP}\n
+🔵 ${combatant2Type}${combatant2Name}  💥-${combatant2HeroDamageTaken} ❤️${combatant2HP}/${combatant2MaxHP}\n
+[${combatant2AliveArmyTypeAfter}] 💥-${combatant2ArmyDamageTaken} 💖${combatant2ArmyHP}/${combatant2ArmyMaxHP}  
+"
+  #  - id: skillSelect
+  #    inlineKeyboard:
+  #      rows:
+  #        - inlineKeyboardRow:
+  #            - inlineKeyboardButton:
+  #                text: "${skill1}"
+  #                callbackData: "${skill1CallbackData}"
+  #        - inlineKeyboardRow:
+  #            - inlineKeyboardButton:
+  #                text: "${skill2}"
+  #                callbackData: "${skill2CallbackData}"
+  #        - inlineKeyboardRow:
+  #            - inlineKeyboardButton:
+  #                text: "${skill3}"
+  #                callbackData: "${skill3CallbackData}"
+  - id: battleStart
+    message:
+      action: CREATE
+      text: "${battleStartOpponents}:\n\nВаш ход:"
+      replyKeyboard:
+        inlineKeyboard:
+          rows:
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill1}"
+                    callbackData: "${skill1CallbackData}"
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill2}"
+                    callbackData: "${skill2CallbackData}"
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill3}"
+                    callbackData: "${skill3CallbackData}"
+  - id: battleStartLog
+    message:
+      action: CREATE
+      text: "${battleStartOpponents}"
+  - id: battleTurn
+    message:
+      action: CREATE
+      text: "${battleTurnResult}:\n\nВаш ход:"
+      replyKeyboard:
+        inlineKeyboard:
+          rows:
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill1}"
+                    callbackData: "${skill1CallbackData}"
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill2}"
+                    callbackData: "${skill2CallbackData}"
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill3}"
+                    callbackData: "${skill3CallbackData}"
+  - id: battleTurnLog
+    message:
+      action: CREATE
+      text: "${battleTurnResult}"
+  - id: battleResult
+    message:
+      action: CREATE
+      text: "
+▰▰▰▰▰▰ Итог боя ▰▰▰▰▰▰\n
+🔴 ${combatant1Name}[${combatant1Level}] (${combatant1Type}${combatant1Class}[${combatant1ClassLevel}]) ❤️${combatant1HP}/${combatant1MaxHP}\n
+[${combatant1AliveArmyTypeAfter}] ${combatant1ArmyName}[${combatant1ArmyTier}] 💖${combatant1ArmyHP}/${combatant1ArmyMaxHP}\n
+${winOrLose}\n
+🔵  ${combatant2Name}[${combatant2Level}] (${combatant2Type}${combatant2Class}[${combatant2ClassLevel}]) ❤️${combatant2HP}/${combatant2MaxHP}\n
+[${combatant2AliveArmyTypeAfter}] ${combatant2ArmyName}[${combatant2ArmyTier}] 💖${combatant2ArmyHP}/${combatant2ArmyMaxHP}\n 
+Награда:\n
+${lootGained}
+"
+      replyKeyboard:
+        inlineKeyboard:
+          rows:
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "Вернуться"
+                    callbackData: "finishBattle"
+
+#  group:battle;id:battleStart;combatant1Name:Тюнс;combatant1Level:10;combatant1Type:🗡;combatant1Class:Воин;combatant1ClassLevel:7;combatant1HP:500;combatant1MaxHP:500;combatant1Atk:100;combatant1Def:100;combatant1AliveArmyType:🔱🔱🔱;combatant1ArmyName:Крестьяне;combatant1ArmyTier:1;combatant1ArmyHP:450;combatant1ArmyMaxHP:450;combatant1ArmyAtk:40;combatant1ArmyDef:60;combatant2Name:Главарь разбойников;combatant2Level:1;combatant2Type:🥋;combatant2Class:ИИ;combatant2ClassLevel:1;combatant2HP:400;combatant2MaxHP:400;combatant2Atk:120;combatant2Def:60;combatant2AliveArmyType:🥋🥋🥋;combatant2ArmyName:Разбойники;combatant2ArmyTier:1;combatant2ArmyHP:360;combatant2ArmyMaxHP:360;combatant2ArmyAtk:70;combatant2ArmyDef:30;skill1:⚔️⚔️⚔️Безрассудная Атака;skill2:⚔️🛡🪖Готовность;skill3:⚔️🪓🪖Стальной натиск🗡
+#  group:battle;id:battleStartLog;combatant1Name:Тюнс;combatant1Level:10;combatant1Type:🗡;combatant1Class:Воин;combatant1ClassLevel:7;combatant1HP:500;combatant1MaxHP:500;combatant1Atk:100;combatant1Def:100;combatant1AliveArmyType:🔱🔱🔱;combatant1ArmyName:Крестьяне;combatant1ArmyTier:1;combatant1ArmyHP:450;combatant1ArmyMaxHP:450;combatant1ArmyAtk:40;combatant1ArmyDef:60;combatant2Name:Главарь разбойников;combatant2Level:1;combatant2Type:🥋;combatant2Class:ИИ;combatant2ClassLevel:1;combatant2HP:400;combatant2MaxHP:400;combatant2Atk:120;combatant2Def:60;combatant2AliveArmyType:🥋🥋🥋;combatant2ArmyName:Разбойники;combatant2ArmyTier:1;combatant2ArmyHP:360;combatant2ArmyMaxHP:360;combatant2ArmyAtk:70;combatant2ArmyDef:30
+#  group:battle;id:battleTurn;turnLastNumber:1;combatant1Name:Тюнс;combatant1Level:10;combatant1Type:🗡;combatant1HP:400;combatant1MaxHP:500;combatant1Atk:100;combatant1Def:100;combatant1AliveArmyType:🔱🔱🔱;combatant1AliveArmyTypeAfter:🔱🔱🔱;combatant1ArmyName:Крестьяне;combatant1ArmyTier:1;combatant1ArmyHP:330;combatant1ArmyMaxHP:450;combatant1ArmyAtk:40;combatant1ArmyDef:60;combatant1SkillLast:⚔️🛡🪖Готовность;combatant1HeroDamageTaken:100;combatant1ArmyDamageTaken:120;combatant2Name:Главарь разбойников;combatant2Level:1;combatant2Type:🥋;combatant2HP:250;combatant2MaxHP:400;combatant2AliveArmyType:🥋🥋🥋️;combatant2AliveArmyTypeAfter:🥋🥋☠️;combatant2ArmyName:Разбойники;combatant2ArmyTier:1;combatant2ArmyHP:180;combatant2ArmyMaxHP:360;combatant2SkillLast:⚔️⚔️⚔️Безрассудная Атака;combatant2HeroDamageTaken:150;combatant2ArmyDamageTaken:180;skill1:⚔️⚔️⚔️Безрассудная Атака;skill2:⚔️🛡🪖Готовность;skill3:⚔️🪓🪖Стальной натиск🗡
+#  group:battle;id:battleTurnLog;turnLastNumber:1;combatant1Name:Тюнс;combatant1Level:10;combatant1Type:🗡;combatant1HP:400;combatant1MaxHP:500;combatant1Atk:100;combatant1Def:100;combatant1AliveArmyType:🔱🔱🔱;combatant1AliveArmyTypeAfter:🔱🔱🔱;combatant1ArmyName:Крестьяне;combatant1ArmyTier:1;combatant1ArmyHP:330;combatant1ArmyMaxHP:450;combatant1ArmyAtk:40;combatant1ArmyDef:60;combatant1SkillLast:⚔️🛡🪖Готовность;combatant1HeroDamageTaken:100;combatant1ArmyDamageTaken:120;combatant2Name:Главарь разбойников;combatant2Level:1;combatant2Type:🥋;combatant2HP:250;combatant2MaxHP:400;combatant2AliveArmyType:🥋🥋🥋️;combatant2AliveArmyTypeAfter:🥋🥋☠️;combatant2ArmyName:Разбойники;combatant2ArmyTier:1;combatant2ArmyHP:180;combatant2ArmyMaxHP:360;combatant2SkillLast:⚔️⚔️⚔️Безрассудная Атака;combatant2HeroDamageTaken:150;combatant2ArmyDamageTaken:180
+#  group:battle;id:battleResult;combatant1Name:Тюнс;combatant1Level:10;combatant1Type:🗡;combatant1Class:Воин;combatant1ClassLevel:7;combatant1HP:200;combatant1MaxHP:500;combatant1Atk:100;combatant1Def:100;combatant1AliveArmyType:🔱🔱🔱;combatant1AliveArmyTypeAfter:🔱🔱☠️;combatant1ArmyName:Крестьяне;combatant1ArmyTier:1;combatant1ArmyHP:30;combatant1ArmyMaxHP:450;combatant1ArmyAtk:40;combatant1ArmyDef:60;combatant1SkillLast:⚔️🛡🪖Готовность;combatant1HeroDamageTaken:100;combatant1ArmyDamageTaken:120;combatant2Name:Главарь разбойников;combatant2Level:1;combatant2Type:🥋;combatant2Class:ИИ;combatant2ClassLevel:1;combatant2HP:250;combatant2MaxHP:400;combatant2AliveArmyType:🥋🥋🥋️;combatant2AliveArmyTypeAfter:☠️☠️☠️;combatant2ArmyName:Разбойники;combatant2ArmyTier:1;combatant2ArmyHP:0;combatant2ArmyMaxHP:360;winOrLose:одержал победу над;lootGained:💰 Золото 58
