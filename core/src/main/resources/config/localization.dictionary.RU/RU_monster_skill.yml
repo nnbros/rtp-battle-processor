@@ -1,0 +1,27 @@
+localization.monster.skills:
+#BASIC
+    default:
+        name: "⚔️🛡️Удар👊"
+    reckless_attack:
+        name: "⚔️⚔️⚔️Безрассудная Атака"
+    assault:
+        name: "⚔️⚔️🛡️Атака"
+    defense:
+        name: "⚔️🛡️🛡️Оборона"
+    full_defense:
+        name: "🛡️🛡️🛡️Полная Оборона"
+    lead:
+        name: "⚔️🛡️🪓Возглавить"
+    battle_readiness:
+        name: "⚔️🛡️🪖Готовность"
+#-SLIME
+    slime_jab:
+        name: "⚔️🛡️Слизь толкает Вас"
+    splashing1:
+        name: "⚔️Слизь начинает бурлить"
+    splashing2:
+        name: "⚔️⚔️⚔️Слизь разливается во все стороны💣"
+    tentacle1:
+        name: "🛡️Слизь резко сжимается"
+    tentacle2:
+        name: "⚔️⚔️⚔️Слизь выстреливает тентаклем прямо в Вас🎯"
