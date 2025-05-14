@@ -1,0 +1,10 @@
+databaseChangeLog:
+    -   include:
+            file: init.sql
+            relativeToChangelogFile: true
+    -   include:
+            file: monster_dictionary.sql
+            relativeToChangelogFile: true
+    -   include:
+            file: data/monsters.sql
+            relativeToChangelogFile: true

@@ -1,0 +1,45 @@
+spring:
+    datasource:
+        hikari:
+            maximumPoolSize: 10
+            minimumIdle: 5
+            idleTimeout: 30000  # 30 sec
+            maxLifeTime: 300000  # 5 min
+            keepAliveTime: 30000  # 30 sec
+            connectionTimeout: 30000  # 30 sec
+        url: jdbc:postgresql://213.177.120.46:2219/rtp
+        username: pve
+        password: ngDfDesD2F34prmy4vyt
+        driver-class-name: org.postgresql.Driver
+    liquibase:
+        drop-first: false
+    jpa:
+        show-sql: true
+
+# Feign settings
+    cloud.openfeign.client.config:
+        default:
+            loggerLevel: full
+        gateway:
+            url: http://localhost:8080
+            path: /api/v1/
+        storyteller:
+            url: http://localhost:8085
+            path: /api/v1/
+
+# Logging settings
+debug: true
+pve:
+    action-processor-thread-pool:
+        min: 5
+        max: 15
+        await-termination-timeout: 10s
+logging:
+    level:
+        feign: DEBUG
+        root: INFO
+        web: DEBUG
+        com.github.nnbros.rtp: DEBUG
+    file:
+        path: 
+        name: 

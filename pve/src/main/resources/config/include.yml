@@ -1,0 +1,4 @@
+spring:
+    config:
+        import:
+            - "classpath:config/localization/dictionary/RU/RU_monster_skill.yml"

@@ -1,0 +1,109 @@
+battle:
+  - id: battleStartOpponents
+    text: "
+▰▰▰▰▰▰ ⚔️ Начинается бой 🛡 ▰▰▰▰▰▰\n
+🔴 ${combatant1Name}[${combatant1Level}] (${combatant1Type}${combatant1Class}[${combatant1ClassLevel}])\n
+❤️${combatant1HP}/${combatant1MaxHP} ⚔️${combatant1Atk} 🛡${combatant1Def}\n
+[${combatant1AliveArmyType}] ${combatant1ArmyName}[${combatant1ArmyTier}]\n
+💖${combatant1ArmyHP}/${combatant1ArmyMaxHP} 🪓${combatant1ArmyAtk} 🪖${combatant1ArmyDef}\n
+🆚\n
+🔵 ${combatant2Name}[${combatant2Level}] (${combatant2Type}${combatant2Class}[${combatant2ClassLevel}])\n
+❤️${combatant2HP}/${combatant2MaxHP} ⚔️${combatant2Atk} 🛡${combatant2Def}\n
+[${combatant2AliveArmyType}] ${combatant2ArmyName}[${combatant2ArmyTier}]\n
+💖${combatant2ArmyHP}/${combatant2ArmyMaxHP} 🪓${combatant2ArmyAtk} 🪖${combatant2ArmyDef}
+"
+
+  - id: battleTurnResult
+    text: "
+▰▰▰▰▰▰ 🌀 Ход ${turnLastNumber}▰▰▰▰▰▰\n
+🔴 ${combatant1Type}${combatant1Name} [${combatant1AliveArmyType}] командует:\n 
+${combatant1SkillLast}\n
+🔵 ${combatant2Type}${combatant2Name} [${combatant2AliveArmyType}] командует:\n 
+${combatant2SkillLast}\n
+▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰\n
+🔴 ${combatant1Type}${combatant1Name}  💥-${combatant1HeroDamageTaken} ❤️${combatant1HP}/${combatant1MaxHP}\n
+[${combatant1AliveArmyTypeAfter}] 💥-${combatant1ArmyDamageTaken} 💖${combatant1ArmyHP}/${combatant1ArmyMaxHP}\n
+🔵 ${combatant2Type}${combatant2Name}  💥-${combatant2HeroDamageTaken} ❤️${combatant2HP}/${combatant2MaxHP}\n
+[${combatant2AliveArmyTypeAfter}] 💥-${combatant2ArmyDamageTaken} 💖${combatant2ArmyHP}/${combatant2ArmyMaxHP}  
+"
+  #  - id: skillSelect
+  #    inlineKeyboard:
+  #      rows:
+  #        - inlineKeyboardRow:
+  #            - inlineKeyboardButton:
+  #                text: "${skill1}"
+  #                callbackData: "${skill1CallbackData}"
+  #        - inlineKeyboardRow:
+  #            - inlineKeyboardButton:
+  #                text: "${skill2}"
+  #                callbackData: "${skill2CallbackData}"
+  #        - inlineKeyboardRow:
+  #            - inlineKeyboardButton:
+  #                text: "${skill3}"
+  #                callbackData: "${skill3CallbackData}"
+  - id: battleStart
+    message:
+      action: CREATE
+      text: "${battleStartOpponents}:\n\nВаш ход:"
+      replyKeyboard:
+        inlineKeyboard:
+          rows:
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill1}"
+                    callbackData: "${skill1CallbackData}"
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill2}"
+                    callbackData: "${skill2CallbackData}"
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill3}"
+                    callbackData: "${skill3CallbackData}"
+  - id: battleStartLog
+    message:
+      action: CREATE
+      text: "${battleStartOpponents}"
+  - id: battleTurn
+    message:
+      action: CREATE
+      text: "${battleTurnResult}:\n\nВаш ход:"
+      replyKeyboard:
+        inlineKeyboard:
+          rows:
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill1}"
+                    callbackData: "${skill1CallbackData}"
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill2}"
+                    callbackData: "${skill2CallbackData}"
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "${skill3}"
+                    callbackData: "${skill3CallbackData}"
+  - id: battleTurnLog
+    message:
+      action: CREATE
+      text: "${battleTurnResult}"
+  - id: battleResult
+    message:
+      action: CREATE
+      text: "
+▰▰▰▰▰▰ Итог боя ▰▰▰▰▰▰\n
+🔴 ${combatant1Name}[${combatant1Level}] (${combatant1Type}${combatant1Class}[${combatant1ClassLevel}]) ❤️${combatant1HP}/${combatant1MaxHP}\n
+[${combatant1AliveArmyTypeAfter}] ${combatant1ArmyName}[${combatant1ArmyTier}] 💖${combatant1ArmyHP}/${combatant1ArmyMaxHP}\n
+${winOrLose}\n
+🔵  ${combatant2Name}[${combatant2Level}] (${combatant2Type}${combatant2Class}[${combatant2ClassLevel}]) ❤️${combatant2HP}/${combatant2MaxHP}\n
+[${combatant2AliveArmyTypeAfter}] ${combatant2ArmyName}[${combatant2ArmyTier}] 💖${combatant2ArmyHP}/${combatant2ArmyMaxHP}\n 
+Награда:\n
+${lootGained}
+"
+      replyKeyboard:
+        inlineKeyboard:
+          rows:
+            - inlineKeyboardRow:
+                - inlineKeyboardButton:
+                    text: "Вернуться"
+                    callbackData: "finishBattle"
