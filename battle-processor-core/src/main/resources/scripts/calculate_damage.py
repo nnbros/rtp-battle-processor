@@ -1,5 +1,6 @@
 from skill_dictionary import skill_dictionary
 import random
+import math
 
 
 def calculate_damage(attacker, defender):
@@ -9,11 +10,12 @@ def calculate_damage(attacker, defender):
     attacker_army_adv_bonus = attacker.getArmyAdvantageBonus()
     defender_hero_archetype = defender.getArchetype()
     defender_army_archetype = defender.getArmyArchetype()
+    defender_alive_soldiers = get_alive_soldiers(defender)
 
     attacker_hero_total_attack = attacker.getAtk() * (2 + attacker_skill.action_hero_atk)
-    attacker_army_total_attack = (attacker.getArmyAtk() * (1 + attacker_skill.action_army_atk) * attacker.getAliveSoldiers())
+    attacker_army_total_attack = (attacker.getArmyAtk() * (1 + attacker_skill.action_army_atk) * get_alive_soldiers(attacker))
     defender_hero_total_defense = defender.getDef() * (1 + defender_skill.action_hero_def)
-    defender_army_total_defense = (defender.getArmyDef() * (1 + defender_skill.action_army_def) * defender.getAliveSoldiers())
+    defender_army_total_defense = (defender.getArmyDef() * (1 + defender_skill.action_army_def) * defender_alive_soldiers)
 
     if defender.getAliveSoldiers() == 0:
         hero_vs_hero = calc_attack(attacker_hero_total_attack, attacker_hero_adv_bonus, attacker_skill.skill_type,
@@ -42,6 +44,9 @@ def calculate_damage(attacker, defender):
 
     defender.setReceivedDmg(defender_hero_damage_taken)
     defender.setReceivedArmyDmg(defender_army_damage_taken)
+    defender.setHp(min(0, defender.getHP - defender_hero_damage_taken))
+    defender.setArmyHp(min(0, defender.getArmyHP - defender_army_damage_taken))
+    defender.setSoldiersDelta(defender_alive_soldiers - get_alive_soldiers(defender))
 
 
 # damage = total_attack * adv_bonus * damage_distribution - total_defense
@@ -51,3 +56,8 @@ def calc_attack(atk_total, adv_bonus, skill_type, damage_type, def_archetype, bo
     attack_distributed = attack * damage_distribution
     attack_randomized = int(attack_distributed * random.uniform(1-spread, 1+spread))
     return attack_randomized
+
+
+def get_alive_soldiers(combatant):
+    return math.ceil(combatant.getArmyQuantity * combatant.getArmyHp / combatant.getrArmyMaxHp) \
+        if combatant.getArmyMaxHp else 0
