@@ -46,7 +46,7 @@ def calculate_damage(attacker, defender):
     defender.setReceivedArmyDmg(defender_army_damage_taken)
     defender.setHp(min(0, defender.getHP - defender_hero_damage_taken))
     defender.setArmyHp(min(0, defender.getArmyHP - defender_army_damage_taken))
-    defender.setSoldiersDelta(defender_alive_soldiers - get_alive_soldiers(defender))
+    defender.setSoldiersDelta(get_alive_soldiers(defender - defender_alive_soldiers))
 
 
 # damage = total_attack * adv_bonus * damage_distribution - total_defense
