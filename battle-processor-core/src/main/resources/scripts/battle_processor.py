@@ -10,7 +10,7 @@ from skill_dictionary import skill_dictionary
 
 class CombatantPy(Combatant):
     def __init__(self, entityName, archetype, maxHp, hp, atk, def_, armyName, armyArchetype, armyMaxHp, armyHp, armyAtk, armyDef,
-                 armyQuantity, isCharacter, activeSkill, advantageBonus, armyAdvantageBonus, receivedDmg, receivedArmyDmg):
+                 armyQuantity, isCharacter, activeSkill, advantageBonus, armyAdvantageBonus, receivedDmg, receivedArmyDmg, soldiersDelta):
         self._entityName = entityName
         self._archetype = archetype
         self._maxHp = maxHp
@@ -30,6 +30,7 @@ class CombatantPy(Combatant):
         self._armyAdvantageBonus = armyAdvantageBonus
         self._receivedDmg = receivedDmg
         self._receivedArmyDmg = receivedArmyDmg
+        self._soldiersDelta = soldiersDelta
 
     def getEntityName(self):
         return self._entityName
@@ -88,6 +89,9 @@ class CombatantPy(Combatant):
     def getReceivedArmyDmg(self):
         return self._receivedArmyDmg
 
+    def getSoldiersDelta(self):
+        return self._soldiersDelta
+
     def setEntityName(self, value):
         self._entityName = value
 
@@ -138,6 +142,9 @@ class CombatantPy(Combatant):
 
     def setReceivedArmyDmg(self, value):
         self._receivedArmyDmg = value
+
+    def setSoldiersDelta(self, value):
+        self._soldiersDelta = value
 
     def getAliveSoldiers(self):
         return math.ceil(self._armyQuantity * self._armyHp / self._armyMaxHp) if self._armyMaxHp else 0
