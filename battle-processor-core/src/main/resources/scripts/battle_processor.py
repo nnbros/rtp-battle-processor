@@ -10,7 +10,7 @@ from skill_dictionary import skill_dictionary
 
 class CombatantPy(Combatant):
     def __init__(self, entityName, archetype, maxHp, hp, atk, def_, armyName, armyArchetype, armyMaxHp, armyHp, armyAtk, armyDef,
-                 armyQuantity, isCharacter, activeSkill, advantageBonus, armyAdvantageBonus, receivedDmg, receivedArmyDmg, soldiersAlive, soldiersDelta):
+                 armyQuantity, isCharacter, activeSkill, advantageBonus, armyAdvantageBonus, receivedDmg, receivedArmyDmg, aliveSoldiers, soldiersDelta):
         self._entityName = entityName
         self._archetype = archetype
         self._maxHp = maxHp
@@ -30,7 +30,7 @@ class CombatantPy(Combatant):
         self._armyAdvantageBonus = armyAdvantageBonus
         self._receivedDmg = receivedDmg
         self._receivedArmyDmg = receivedArmyDmg
-        self._soldiersAlive = soldiersAlive
+        self._aliveSoldiers = aliveSoldiers
         self._soldiersDelta = soldiersDelta
 
     def getEntityName(self):
@@ -90,8 +90,8 @@ class CombatantPy(Combatant):
     def getReceivedArmyDmg(self):
         return self._receivedArmyDmg
 
-    def getSoldiersAlive(self, value):
-        return self._soldiersAlive
+    def getAliveSoldiers(self):
+        return self._aliveSoldiers
 
     def getSoldiersDelta(self):
         return self._soldiersDelta
@@ -147,8 +147,8 @@ class CombatantPy(Combatant):
     def setReceivedArmyDmg(self, value):
         self._receivedArmyDmg = value
 
-    def setSoldiersAlive(self, value):
-        self._soldiersAlive = value
+    def setAliveSoldiers(self, value):
+        self._aliveSoldiers = value
 
     def setSoldiersDelta(self, value):
         self._soldiersDelta = value
