@@ -15,6 +15,7 @@
 
     <properties>
         <jython.version>2.7.4</jython.version>
+        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     </properties>
 
     <dependencies>
@@ -24,4 +25,34 @@
             <version>${jython.version}</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-game-scripts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- where to copy to -->
+                            <outputDirectory>${project.build.directory}/scripts</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <!-- your scripts folder -->
+                                    <directory>src/main/resources/scripts</directory>
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
