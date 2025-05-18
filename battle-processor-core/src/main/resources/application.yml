@@ -1,0 +1,2 @@
+battle-processor.scripts-path: "classpath:/scripts"
+battle-processor.main-script-name: "battle_processor.py"
