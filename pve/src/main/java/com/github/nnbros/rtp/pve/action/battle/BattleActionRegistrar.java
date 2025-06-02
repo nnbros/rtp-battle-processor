@@ -22,7 +22,7 @@ public class BattleActionRegistrar implements ActionRegistrar {
 
     private Map<String, ActionPipeline> initPipelines(BattleService battleService, BattleTelegramClient battleTelegramClient) {
         return Map.of(
-                START_BATTLE.getActionName(), create(battleService::initiateBattle, battleTelegramClient::sendTurnOptionsMenu),
+                START_BATTLE.getActionName(), create(battleService::initiateBattle, battleTelegramClient::sendInitialBattleMessage),
                 BATTLE_TURN.getActionName(), create(battleService::processBattleTurn, battleTelegramClient::sendResultMessage, battleTelegramClient::sendTurnOptionsMenu)
         );
     }

@@ -42,11 +42,11 @@ def calculate_damage(attacker, defender):
         defender_hero_damage_taken = max(0, hero_vs_hero + army_vs_hero - defender_hero_total_defense)
         defender_army_damage_taken = max(0, hero_vs_army + army_vs_army - defender_army_total_defense)
 
-    defender.setReceivedDmg(defender_hero_damage_taken)
-    defender.setReceivedArmyDmg(defender_army_damage_taken)
-    defender.setHp(min(0, defender.getHP - defender_hero_damage_taken))
-    defender.setArmyHp(min(0, defender.getArmyHP - defender_army_damage_taken))
-    defender.setSoldiersDelta(get_alive_soldiers(defender - defender_alive_soldiers))
+    defender.setReceivedDmg(int(defender_hero_damage_taken))
+    defender.setReceivedArmyDmg(int(defender_army_damage_taken))
+    defender.setHp(int(max(0, defender.getHp() - defender_hero_damage_taken)))
+    defender.setArmyHp(int(max(0, defender.getArmyHp() - defender_army_damage_taken)))
+    defender.setSoldiersDelta(int(get_alive_soldiers(defender) - defender_alive_soldiers))
 
 
 # damage = total_attack * adv_bonus * damage_distribution - total_defense
@@ -59,5 +59,5 @@ def calc_attack(atk_total, adv_bonus, skill_type, damage_type, def_archetype, bo
 
 
 def get_alive_soldiers(combatant):
-    return math.ceil(combatant.getArmyQuantity * combatant.getArmyHp / combatant.getrArmyMaxHp) \
-        if combatant.getArmyMaxHp else 0
+    return math.ceil(combatant.getArmyQuantity() * combatant.getArmyHp() / combatant.getArmyMaxHp()) \
+        if combatant.getArmyMaxHp() else 0

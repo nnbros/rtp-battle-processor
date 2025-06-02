@@ -1,0 +1,4 @@
+localization.battle:
+    battleOutcomeWin: "одержал победу над"
+    battleOutcomeLose: "потерпел поражение от"
+    battleOutcomeDraw: "закончил бой ничьей с"

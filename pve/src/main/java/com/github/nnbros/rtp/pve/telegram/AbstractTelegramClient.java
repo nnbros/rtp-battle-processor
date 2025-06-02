@@ -9,6 +9,7 @@ import com.github.nnbros.rtp.pve.telegram.ui.Element;
 import lombok.RequiredArgsConstructor;
 import org.telegram.telegrambots.meta.api.interfaces.BotApiObject;
 import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
@@ -119,5 +120,12 @@ public abstract class AbstractTelegramClient {
 		} catch (ElementNotFoundException e) {
 			throw new PveRuntimeException(e);
 		}
+	}
+
+	public void sendRemoveInlineKeyboardMessage(Long userId, Integer messageId) {
+		EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
+		editMessageReplyMarkup.setChatId(userId);
+		editMessageReplyMarkup.setMessageId(messageId);
+		execute(editMessageReplyMarkup);
 	}
 }

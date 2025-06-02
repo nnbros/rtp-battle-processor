@@ -1,0 +1,5 @@
+localization.monsters:
+    slime:
+        name: "Слизь"
+    bandit_leader:
+        name: "Главарь разбойников"

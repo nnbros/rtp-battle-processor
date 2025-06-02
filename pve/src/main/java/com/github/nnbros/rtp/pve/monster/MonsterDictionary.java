@@ -1,6 +1,5 @@
 package com.github.nnbros.rtp.pve.monster;
 
-import com.github.nnbros.rtp.battleprocessor.core.Combatant;
 import com.github.nnbros.rtp.battleprocessor.core.CombatantImpl;
 
 public record MonsterDictionary(Integer id,
