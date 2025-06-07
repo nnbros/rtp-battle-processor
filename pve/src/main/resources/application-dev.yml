@@ -27,6 +27,8 @@ spring:
             url: http://localhost:8085
             path: /api/v1/
 
+battle-processor.scripts-path: "classpath:/scripts"
+
 # Logging settings
 debug: true
 pve:

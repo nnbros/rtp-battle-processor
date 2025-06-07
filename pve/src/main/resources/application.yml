@@ -69,7 +69,7 @@ pve:
     battle:
         max-active-skills: 3
 
-battle-processor.scripts-path: "classpath:/scripts"
+battle-processor.scripts-path: "classpath:/app/scripts"
 elements.working-directory: "classpath:/config/ui/elements"
 
 #####

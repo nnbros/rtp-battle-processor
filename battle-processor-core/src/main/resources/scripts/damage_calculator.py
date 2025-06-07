@@ -17,7 +17,7 @@ def calculate_damage(attacker, defender):
     defender_hero_total_defense = defender.getDef() * (1 + defender_skill.action_hero_def)
     defender_army_total_defense = (defender.getArmyDef() * (1 + defender_skill.action_army_def) * defender_alive_soldiers)
 
-    if defender.getAliveSoldiers() == 0:
+    if defender_alive_soldiers == 0:
         hero_vs_hero = calc_attack(attacker_hero_total_attack, attacker_hero_adv_bonus, attacker_skill.skill_type,
                                    "CLASS", defender_hero_archetype, attacker_skill.bonus_against, 1)
         army_vs_hero = calc_attack(attacker_army_total_attack, attacker_army_adv_bonus, attacker_skill.skill_type,
@@ -59,5 +59,5 @@ def calc_attack(atk_total, adv_bonus, skill_type, damage_type, def_archetype, bo
 
 
 def get_alive_soldiers(combatant):
-    return math.ceil(combatant.getArmyQuantity() * combatant.getArmyHp() / combatant.getArmyMaxHp()) \
+    return math.ceil(float(combatant.getArmyQuantity() * combatant.getArmyHp()) / combatant.getArmyMaxHp()) \
         if combatant.getArmyMaxHp() else 0

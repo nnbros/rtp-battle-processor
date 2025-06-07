@@ -14,10 +14,14 @@ import com.github.nnbros.rtp.pve.monster.MonsterService;
 import com.github.nnbros.rtp.pve.storyteller.StoryTellerClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static com.github.nnbros.rtp.pve.BotTestUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -64,6 +68,8 @@ public class BattleServiceTest extends PveTest {
 		assertEquals(TEST_MAX_ACTIVE_SKILLS, battle.getMaxActiveSkillsCount());
 		verify(storyTellerClient, times(1)).getCharacter(TEST_USER_ID);
 		verify(monsterService, times(1)).getRandomMonster();
+		List<String> expectedActiveSkills = List.of(TEST_SKILL_1, TEST_SKILL_2, TEST_SKILL_3);
+		assertTrue(battle.getActiveSkills().containsAll(expectedActiveSkills));
 	}
 
 	@Test
@@ -100,7 +106,6 @@ public class BattleServiceTest extends PveTest {
 		assertNotNull(battleActionResult);
 		Battle battle = battleActionResult.getValue();
 		assertNotNull(battle);
-		battle.getActiveSkills().add(TEST_SKILL_1);
 
 		ActionContext battleTurnContext = createTestActionContext(TEST_SKILL_1);
 		ActionResult<Battle> turnResult = battleService.processBattleTurn(battleTurnContext);
@@ -114,6 +119,43 @@ public class BattleServiceTest extends PveTest {
 		expectedDuelParticipants.getFirstCombatant().setActiveSkill(TEST_SKILL_1);
 		assertEquals(expectedDuelParticipants, duelParticipants);
 		verify(battleProcessor).calculateDuelTurn(duelParticipants);
+		List<String> expectedActiveSkills = List.of(TEST_SKILL_1, TEST_SKILL_2, TEST_SKILL_3);
+		assertTrue(battle.getActiveSkills().containsAll(expectedActiveSkills));
+	}
+
+	@ParameterizedTest
+	@MethodSource("provideBattleOutcomeArguments")
+	void processBattleTurnBattleIsFinished(int firstCombatantHp, int secondCombatantHp, BattleOutcome expectedBattleOutcome) {
+		when(storyTellerClient.getCharacter(TEST_USER_ID)).thenReturn(testCharacterView());
+		when(monsterService.getRandomMonster()).thenReturn(testMonster());
+
+		ActionContext initialContext = createTestActionContext();
+		ActionResult<Battle> battleActionResult = battleService.initiateBattle(initialContext);
+
+		assertNotNull(battleActionResult);
+		Battle battle = battleActionResult.getValue();
+		assertNotNull(battle);
+
+		ActionContext battleTurnContext = createTestActionContext(TEST_SKILL_1);
+		DuelParticipantsImpl duelParticipants = battle.getDuelParticipants();
+		duelParticipants.getFirstCombatant().setHp(firstCombatantHp);
+		duelParticipants.getSecondCombatant().setHp(secondCombatantHp);
+		ActionResult<Battle> turnResult = battleService.processBattleTurn(battleTurnContext);
+
+		assertNotNull(turnResult);
+		assertTrue(turnResult.isSuccessful());
+		battle = turnResult.getValue();
+		assertNotNull(battle);
+		DuelParticipantsImpl finalDuelParticipants = battle.getDuelParticipants();
+		DuelParticipantsImpl expectedDuelParticipants = testDuelParticipants();
+		expectedDuelParticipants.getFirstCombatant().setActiveSkill(TEST_SKILL_1);
+		expectedDuelParticipants.getFirstCombatant().setHp(firstCombatantHp);
+		expectedDuelParticipants.getSecondCombatant().setHp(secondCombatantHp);
+		assertEquals(expectedDuelParticipants, finalDuelParticipants);
+		assertEquals(expectedBattleOutcome, battle.getBattleOutcome());
+		verify(battleProcessor).calculateDuelTurn(finalDuelParticipants);
+		assertThrows(BattleNotFoundException.class,
+				() -> battleService.processBattleTurn(battleTurnContext));
 	}
 
 	@Test
@@ -127,9 +169,9 @@ public class BattleServiceTest extends PveTest {
 		assertNotNull(battleActionResult);
 		Battle battle = battleActionResult.getValue();
 		assertNotNull(battle);
-		battle.getActiveSkills().add(TEST_SKILL_1);
+		battle.getActiveSkills().remove(TEST_SKILL_3);
 
-		ActionContext battleTurnContext = createTestActionContext(TEST_SKILL_2);
+		ActionContext battleTurnContext = createTestActionContext(TEST_SKILL_3);
 		assertThrows(PveRuntimeException.class,
 				() -> battleService.processBattleTurn(battleTurnContext));
 	}
@@ -140,5 +182,13 @@ public class BattleServiceTest extends PveTest {
 
 		assertThrows(BattleNotFoundException.class,
 				() -> battleService.processBattleTurn(battleTurnContext));
+	}
+
+	private static Stream<Arguments> provideBattleOutcomeArguments() {
+		return Stream.of(
+				Arguments.arguments(0, 0, BattleOutcome.battleOutcomeDraw),
+				Arguments.arguments(1, 0, BattleOutcome.battleOutcomeWin),
+				Arguments.arguments(0, 1, BattleOutcome.battleOutcomeLose)
+		);
 	}
 }

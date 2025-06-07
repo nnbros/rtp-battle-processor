@@ -96,11 +96,9 @@ public class BattleTelegramClient extends AbstractTelegramClient {
 	}
 
 	private String buildArmyStrengthEmojis(int armyQuantity, int aliveSoldiers, int soldiersDelta, String armyArchetype) {
-		aliveSoldiers += soldiersDelta;
 		int aliveSoldiersEmojis = 0;
 		if (armyQuantity > 0) {
-			double ratio = (double) aliveSoldiers / armyQuantity;
-			aliveSoldiersEmojis = (int) Math.ceil(ratio * armyQuantity);
+			aliveSoldiersEmojis = aliveSoldiers + soldiersDelta;
 		}
 
 		StringBuilder stringBuilder = new StringBuilder();
