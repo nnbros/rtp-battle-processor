@@ -16,6 +16,8 @@ import org.telegram.telegrambots.meta.api.objects.message.Message;
 
 import java.util.List;
 
+import static com.github.nnbros.rtp.pve.monster.Archetype.SWORDSMAN;
+
 public class BotTestUtils {
 	public static final String TEST_ACTION_NAME = "test_action";
 	public static final String TEST_ACTION_DATA = "test_action_data";
@@ -30,6 +32,7 @@ public class BotTestUtils {
 	public static final String TEST_MONSTER_NAME = "goblin";
 	public static final String TEST_SKILL_1 = "assault";
 	public static final String TEST_SKILL_2 = "defence";
+	public static final String TEST_SKILL_3 = "reckless_attack";
 	public static final String TEST_CLASS_NAME = "warrior";
 	public static final String TEST_ARMY_NAME = "peasants";
 
@@ -137,8 +140,8 @@ public class BotTestUtils {
 				.archetype(Archetype.CAVALRY.toString())
 				.armyName(TEST_ARMY_NAME)
 				.armyArchetype(Archetype.CAVALRY.toString())
-				.armyMaxHp(50)
-				.armyHp(50)
+				.armyMaxHp(500)
+				.armyHp(500)
 				.armyAtk(5)
 				.armyDef(2)
 				.armyQuantity(10)
@@ -219,7 +222,8 @@ public class BotTestUtils {
 
 		ActiveCharacterSkill testSkill1 = new ActiveCharacterSkill(TEST_SKILL_1, SkillType.CAVALRY, null);
 		ActiveCharacterSkill testSkill2 = new ActiveCharacterSkill(TEST_SKILL_2, SkillType.SWORDSMAN, null);
-		view.setActiveSkills(List.of(testSkill1, testSkill2));
+		ActiveCharacterSkill testSkill3 = new ActiveCharacterSkill(TEST_SKILL_3, SkillType.BASIC_CHARACTER, SWORDSMAN);
+		view.setActiveSkills(List.of(testSkill1, testSkill2, testSkill3));
 		return view;
 	}
 

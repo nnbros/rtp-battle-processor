@@ -1,0 +1,25 @@
+localization.armies:
+#TIER 0
+    seekers:
+        name: "Искатели"
+        description: "Работяги, владеющие лопатами, кирками... и короткими мечами"
+        type: "🗡Мечник"
+
+    scouts:
+        name: "Разведчики"
+        description: "Легкие конные \"воины\", предпочитающие скорость защите"
+        type: "🏇Кавалерия"
+
+    peasants:
+        name: "Крестьяне"
+        description: "Если достаточно хорошо заточить вилы, на них может оказаться не только сено"
+        type: "🔱Копейщик"
+
+    bandits:
+        name: "Бандиты"
+        description: ""
+        type: ""
+    slime:
+        name: "Слизь?"
+        description: ""
+        type: ""

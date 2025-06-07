@@ -42,7 +42,7 @@ public class BattleActionRegistrarTest extends PveTest {
         actionPipeline.execute(testActionContext);
 
         verify(battleService, times(1)).initiateBattle(testActionContext);
-        verify(telegramClient, times(1)).sendTurnOptionsMenu(testActionResult);
+        verify(telegramClient, times(1)).sendInitialBattleMessage(testActionResult);
     }
 
     @Test

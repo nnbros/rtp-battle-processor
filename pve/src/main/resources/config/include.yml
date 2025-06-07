@@ -2,3 +2,8 @@ spring:
     config:
         import:
             - "classpath:config/localization/dictionary/RU/RU_monster_skill.yml"
+            - "classpath:config/localization/dictionary/RU/RU_monster.yml"
+            - "classpath:config/localization/dictionary/RU/RU_army.yml"
+            - "classpath:config/localization/dictionary/RU/RU_class.yml"
+            - "classpath:config/localization/dictionary/RU/RU_skill.yml"
+            - "classpath:config/localization/message/RU/RU_battle.yml"

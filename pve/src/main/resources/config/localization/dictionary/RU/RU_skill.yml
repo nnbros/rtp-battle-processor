@@ -1,0 +1,54 @@
+localization.skills:
+#BASIC SKILLS
+    reckless_attack:
+        name: "⚔️⚔️⚔️Безрассудная Атака"
+    assault:
+        name: "⚔️⚔️🛡️Атака"
+    defense:
+        name: "⚔️🛡️🛡️Оборона"
+    full_defense:
+        name: "🛡️🛡️🛡️Полная Оборона"
+    lead:
+        name: "⚔️🛡️🪓Возглавить"
+    battle_readiness:
+        name: "⚔️🛡️🪖Готовность"
+#CLASS SKILLS
+#-WARRIOR
+    duel:
+        name: "⚔️🛡️🛡️Дуэль🗡🎯"
+        description: "Эффективно против копейщиков, воин фокусируется на вражеском герое"
+    cleave:
+        name: "⚔️⚔️🛡️Рассечение🗡💣"
+        description: "Эффективно против копейщиков, воин фокусируется на вражеской армии"
+#-ROGUE
+    elimination:
+        name: "⚔️⚔️🛡️Устранение🎯"
+        description: "Плут наносит урон только во вражеского героя"
+    fire_bomb:
+        name: "⚔️⚔️🛡️Огненная Бомба💣"
+        description: "Плут фокусируется на  вражеской армии"
+#ARMY SKILLS
+#-CAVALRY
+    onslaught:
+        name: "⚔️⚔️🪓Натиск🏇"
+        description: "Армия действует эффективно против мечников"
+#--SCOUTS
+    raid:
+        name: "⚔️🪓🪓Набег🏇"
+        description: "Армия действует эффективно против мечников"
+#-SWORDSMAN
+    iron_tide:
+        name: "⚔️🛡️🪓Стальной натиск🗡"
+        description: "Армия действует эффективно против копейщиков"
+#--SEEKER
+    unearth:
+        name: "⚔️🪓🪖Раскопать🗡"
+        description: "Армия действует эффективно против копейщиков"
+#-SPEARMAN
+    hold_the_line:
+        name: "🛡️🪖🪖Держать строй🔱"
+        description: "Армия действует эффективно против кавалерии"
+#--PEASANTS
+    make_the_way:
+        name: "⚔️⚔️🪖Расступись🔱"
+        description: "Армия действует эффективно против кавалерии"

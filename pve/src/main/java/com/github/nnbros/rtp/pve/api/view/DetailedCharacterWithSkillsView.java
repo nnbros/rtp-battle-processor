@@ -20,6 +20,7 @@ public class DetailedCharacterWithSkillsView extends DetailedCharacterView {
 	private List<ActiveCharacterSkill> activeSkills;
 
 	public CombatantImpl toCombatant() {
+		int armyMaxHp = activeArmy.baseHp() * activeArmy.baseQuantity();
 		return CombatantImpl.builder()
 				.entityName(name)
 				.archetype(activeClass.type().name())
@@ -31,8 +32,8 @@ public class DetailedCharacterWithSkillsView extends DetailedCharacterView {
 				.advantageBonus(activeClass.advantageBonus())
 				.armyName(activeArmy.name())
 				.armyArchetype(activeArmy.type().name())
-				.armyMaxHp(activeArmy.baseHp())
-				.armyHp(activeArmy.baseHp())
+				.armyMaxHp(armyMaxHp)
+				.armyHp(armyMaxHp)
 				.armyAtk(activeArmy.baseAtk())
 				.armyDef(activeArmy.baseDef())
 				.armyQuantity(activeArmy.baseQuantity())

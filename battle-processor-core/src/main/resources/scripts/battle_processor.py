@@ -3,7 +3,7 @@ import math
 
 
 from com.github.nnbros.rtp.battleprocessor.core import DuelParticipants, Combatant
-from calculate_damage import calculate_damage
+from damage_calculator import calculate_damage
 from monster_list import choose_monster_skill
 from skill_dictionary import skill_dictionary
 
@@ -175,6 +175,8 @@ class DuelParticipantsPy(DuelParticipants):
 def calculate_duel_turn(duel_participants):
     combatant1 = duel_participants.getFirstCombatant()
     combatant2 = duel_participants.getSecondCombatant()
+    combatant1.setAliveSoldiers(combatant1.getAliveSoldiers() + combatant1.getSoldiersDelta())
+    combatant2.setAliveSoldiers(combatant2.getAliveSoldiers() + combatant2.getSoldiersDelta())
 
     for combatant in [combatant1, combatant2]:
         if not combatant.isCharacter():

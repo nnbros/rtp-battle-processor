@@ -51,6 +51,7 @@ public class BattleService {
 		Battle battle = Battle.builder()
 				.battleId(battleId.incrementAndGet())
 				.duelParticipants(duelParticipants)
+				.characterClass(character.getActiveClass().name())
 				.characterSkills(skills)
 				.maxActiveSkillsCount(properties.getBattle().getMaxActiveSkills())
 				.build();
@@ -58,7 +59,8 @@ public class BattleService {
 		if (Objects.nonNull(existingBattle)) {
 			throw new PveRuntimeException("Unable to create a new battle for the the user [{}], the battle already exists: [{}]", userId, existingBattle);
 		}
-		log.debug("The battle has been started successfully");
+		battle.drawNextTurnSkills();
+		log.debug("The battle [{}] has been started successfully", battle.getBattleId());
 		log.trace("The battle:\n{}", battle);
 		return new ActionResult<>(actionContext, battle);
 	}
@@ -76,8 +78,15 @@ public class BattleService {
 		Combatant character = duelParticipants.getFirstCombatant().isCharacter() ? duelParticipants.getFirstCombatant() : duelParticipants.getSecondCombatant();
 		character.setActiveSkill(selectedSkill);
 
+		int battleTurn = battle.incrementTurnAndGet();
+		log.debug("Calculating battle turn [{}] for battle [{}]", battleTurn, battle.getBattleId());
 		battleProcessor.calculateDuelTurn(duelParticipants);
-		boolean battleFinished = isBattleFinished(duelParticipants);
+		boolean battleFinished = isBattleFinished(battle);
+		if (battleFinished) {
+			battleCache.remove(userId);
+		} else {
+			battle.drawNextTurnSkills();
+		}
 		log.debug("Is battle finished: {}", battleFinished);
 		log.trace("Current battle state:\n{}", battle);
 		return new ActionResult<>(actionContext, battleFinished, battle);
@@ -88,10 +97,27 @@ public class BattleService {
 				.orElseThrow(() -> new BattleNotFoundException(userId));
 	}
 
-	private boolean isBattleFinished(DuelParticipants duelParticipants) {
-		Combatant firstCombatant = duelParticipants.getFirstCombatant();
-		Combatant secondCombatant = duelParticipants.getSecondCombatant();
-		return firstCombatant.getHp() - firstCombatant.getReceivedDmg() <= 0 || secondCombatant.getHp() - secondCombatant.getReceivedDmg() <= 0;
+	private boolean isBattleFinished(Battle battle) {
+		DuelParticipants participants = battle.getDuelParticipants();
+		Combatant first  = participants.getFirstCombatant();
+		Combatant second = participants.getSecondCombatant();
+		Combatant character = first.isCharacter() ? first : second;
+		Combatant monster   = first.isCharacter() ? second : first;
+
+		int characterHp = character.getHp();
+		int monsterHp = monster.getHp();
+		if (characterHp > 0 && monsterHp > 0) {
+			return false;
+		}
+
+		if (characterHp <= 0 && monsterHp <= 0) {
+			battle.setBattleOutcome(BattleOutcome.battleOutcomeDraw);
+		} else if (characterHp <= 0) {
+			battle.setBattleOutcome(BattleOutcome.battleOutcomeLose);
+		} else {
+			battle.setBattleOutcome(BattleOutcome.battleOutcomeWin);
+		}
+		return true;
 	}
 
 	//TODO scheduler for removing expired battles
