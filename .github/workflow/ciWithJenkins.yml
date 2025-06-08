@@ -18,4 +18,4 @@ jobs:
         url: "https://jenkins.nntu.ru"
         user: "github"
         token: ${{ secrets.GITTOKENJENKINS }}
-        job: "rtp-bot-battle-processor-ci-cd-ver-inc"
+        job: "rtp-bot-battle-processor-pve-ci-cd-ver-inc"
