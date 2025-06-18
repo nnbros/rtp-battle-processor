@@ -13,7 +13,7 @@
 
     <groupId>com.github.nnbros.rtp</groupId>
     <artifactId>rtp-battle-processor</artifactId>
-    <version>0.3.1</version>
+    <version>0.3.2</version>
     <packaging>pom</packaging>
     <name>battle-processor</name>
     <description>A multimodule repo for PVE and PVP services</description>

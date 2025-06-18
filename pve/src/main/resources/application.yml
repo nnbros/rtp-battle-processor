@@ -28,7 +28,7 @@ spring:
         hikari:
             data-source-properties:
                 stringtype: unspecified
-        url: jdbc:postgresql://localhost:5432/rtp
+        url: jdbc:postgresql://postgres:5432/rtp
         username: ${DB_USER}
         password: ${DB_PASSWORD}
         driver-class-name: org.postgresql.Driver
