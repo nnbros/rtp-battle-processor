@@ -14,14 +14,14 @@
     <artifactId>battle-processor-core</artifactId>
 
     <properties>
-        <jython.version>2.7.4</jython.version>
+        <jython.version>2.7.3</jython.version>
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.python</groupId>
-            <artifactId>jython-slim</artifactId>
+            <artifactId>jython-standalone</artifactId>
             <version>${jython.version}</version>
         </dependency>
     </dependencies>

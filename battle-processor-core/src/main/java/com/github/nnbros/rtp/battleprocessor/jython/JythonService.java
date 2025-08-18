@@ -19,12 +19,14 @@ import java.nio.file.Path;
 @Service
 @RequiredArgsConstructor
 public class JythonService {
-	private final PythonInterpreter interpreter = new PythonInterpreter();
-	private final BattleProcessorProperties properties;
+        private PythonInterpreter interpreter;
+        private final BattleProcessorProperties properties;
 
 	@PostConstruct
-	private void init() {
-		init(properties.getScriptsPath(), properties.getMainScriptName(), this.interpreter);
+        private void init() {
+                System.setProperty("python.import.site", "false");
+                this.interpreter = new PythonInterpreter();
+                init(properties.getScriptsPath(), properties.getMainScriptName(), this.interpreter);
 	}
 
 	@PreDestroy
