@@ -28,7 +28,7 @@ skill_dictionary = {
     "fire_bomb": Skill(2, 1, 0, 0, "", "CLASS", 0.25, 0.5),
     # Army
     # Cavalry
-    "onslaught ": Skill(1, 0, 2, 0, "SWORDSMAN", "ARMY", 0.5, 0.5),
+    "onslaught": Skill(1, 0, 2, 0, "SWORDSMAN", "ARMY", 0.5, 0.5),
     "raid": Skill(1, 0, 2, 0, "SWORDSMAN", "ARMY", 0.5, 0.5),
     # Swordsman
     "iron_tide": Skill(1, 0, 1, 1, "SPEARMAN", "ARMY", 0.5, 0.5),
