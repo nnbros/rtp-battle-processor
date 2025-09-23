@@ -2,6 +2,7 @@ package com.github.nnbros.rtp.pve;
 
 import com.github.nnbros.rtp.battleprocessor.core.CombatantImpl;
 import com.github.nnbros.rtp.battleprocessor.core.DuelParticipantsImpl;
+import com.github.nnbros.rtp.pve.action.battle.Battle;
 import com.github.nnbros.rtp.pve.action.ActionContext;
 import com.github.nnbros.rtp.pve.api.view.*;
 import com.github.nnbros.rtp.pve.monster.Archetype;
@@ -35,6 +36,7 @@ public class BotTestUtils {
 	public static final String TEST_SKILL_3 = "reckless_attack";
 	public static final String TEST_CLASS_NAME = "warrior";
 	public static final String TEST_ARMY_NAME = "peasants";
+	public static final long TEST_BATTLE_ID = 789L;
 
 	public static User createTestUser() {
 		return User.builder()
@@ -225,6 +227,20 @@ public class BotTestUtils {
 		ActiveCharacterSkill testSkill3 = new ActiveCharacterSkill(TEST_SKILL_3, SkillType.BASIC_CHARACTER, SWORDSMAN);
 		view.setActiveSkills(List.of(testSkill1, testSkill2, testSkill3));
 		return view;
+	}
+
+	public static Battle testBattle(List<String> characterSkills, int maxActiveSkillsCount) {
+		return Battle.builder()
+				.battleId(TEST_BATTLE_ID)
+				.duelParticipants(testDuelParticipants())
+				.characterClass(TEST_CLASS_NAME)
+				.characterSkills(characterSkills)
+				.maxActiveSkillsCount(maxActiveSkillsCount)
+				.build();
+	}
+
+	public static Battle testBattle(int maxActiveSkillsCount) {
+		return testBattle(List.of(TEST_SKILL_1, TEST_SKILL_2, TEST_SKILL_3), maxActiveSkillsCount);
 	}
 
 	public static MonsterDictionary testMonster() {
