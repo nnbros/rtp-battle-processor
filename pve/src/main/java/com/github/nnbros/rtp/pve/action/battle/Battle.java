@@ -30,6 +30,7 @@ public class Battle {
 		if (playerDeck.size() < maxActiveSkillsCount) {
 			List<String> shufflingList = new ArrayList<>(characterSkills);
 			Collections.shuffle(shufflingList, ThreadLocalRandom.current());
+			playerDeck.clear();
 			playerDeck.addAll(shufflingList);
 		}
 
