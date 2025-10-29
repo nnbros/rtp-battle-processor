@@ -3,9 +3,8 @@ import math
 
 
 from com.github.nnbros.rtp.battleprocessor.core import DuelParticipants, Combatant
-from damage_calculator import calculate_damage
-from monster_list import choose_monster_skill
-from skill_dictionary import skill_dictionary
+from damage_calculator import calculate_damage, apply_changes
+from monster_ai import choose_monster_skill
 
 
 class CombatantPy(Combatant):
@@ -76,7 +75,7 @@ class CombatantPy(Combatant):
         return self._isCharacter
 
     def getActiveSkill(self):
-        return skill_dictionary[self.__activeSkill]
+        return self.__activeSkill
 
     def getAdvantageBonus(self):
         return self._advantageBonus
@@ -173,14 +172,20 @@ class DuelParticipantsPy(DuelParticipants):
 
 
 def calculate_duel_turn(duel_participants):
+    # Parse duel_participants
     combatant1 = duel_participants.getFirstCombatant()
     combatant2 = duel_participants.getSecondCombatant()
-    combatant1.setAliveSoldiers(combatant1.getAliveSoldiers() + combatant1.getSoldiersDelta())
-    combatant2.setAliveSoldiers(combatant2.getAliveSoldiers() + combatant2.getSoldiersDelta())
-
+        
+    # Apply AI to NPCs 
     for combatant in [combatant1, combatant2]:
         if not combatant.isCharacter():
             combatant.setActiveSkill(choose_monster_skill(combatant))
-
-    calculate_damage(combatant1, combatant2)
-    calculate_damage(combatant2, combatant1)
+            
+    # Calculate whats happened
+    changes_combat1 = calculate_damage(combatant2, combatant1)
+    changes_combat2 = calculate_damage(combatant1, combatant2)
+        
+    # Apply results
+    apply_changes(changes_combat1, combatant1)
+    apply_changes(changes_combat2, combatant2)
+    
