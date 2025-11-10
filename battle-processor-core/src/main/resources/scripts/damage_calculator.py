@@ -3,26 +3,18 @@ import random
 import math
 
 
-class Changes():
-    def __init__(self, hp, armyHp, receivedDmg, receivedArmyDmg, aliveSoldiers, soldiersDelta):
-        self.newHp = hp
-        self.newArmyHp = armyHp
-        self.newReceivedDmg = receivedDmg
-        self.newReceivedArmyDmg = receivedArmyDmg
-        self.newAliveSoldiers = aliveSoldiers
-        self.newSoldiersDelta = soldiersDelta
+class TurnSnapshot():
+    def __init__(self, receivedDmg, receivedArmyDmg):
+        self.receivedDmg = receivedDmg
+        self.receivedArmyDmg = receivedArmyDmg
     # Method for == have uses in tests
     def __eq__(self, other):
-        if isinstance(other, Changes):
-            return (self.newHp == other.newHp and self.newArmyHp == other.newArmyHp and 
-                    self.newReceivedDmg == other.newReceivedDmg and self.newReceivedArmyDmg == other.newReceivedArmyDmg and
-                    self.newAliveSoldiers == other.newAliveSoldiers and self.newSoldiersDelta == other.newSoldiersDelta)
+        if isinstance(other, TurnSnapshot):
+            return (self.receivedDmg == other.receivedDmg and self.receivedArmyDmg == other.receivedArmyDmg)
         return False
 
 
-def calculate_damage(attacker, defender):
-    changes = Changes(0, 0, 0, 0, 0, 0)
-
+def calculate_snapshot(attacker, defender):   
     # Get attacker values
     attacker_skill = skill_dictionary[attacker.getActiveSkill()]
     attacker_hero_adv_bonus = attacker.getAdvantageBonus()
@@ -81,15 +73,8 @@ def calculate_damage(attacker, defender):
             defender_hero_damage_taken = max(0, hero_vs_hero + army_vs_hero - defender_hero_total_defense)
             defender_army_damage_taken = max(0, hero_vs_army + army_vs_army - defender_army_total_defense)
 
-    # Set changes
-    changes.newHp = int(max(0, defender.getHp() - defender_hero_damage_taken))
-    changes.newArmyHp = int(max(0, defender.getArmyHp() - defender_army_damage_taken))
-    changes.newReceivedDmg = defender_hero_damage_taken
-    changes.newReceivedArmyDmg = defender_army_damage_taken
-    changes.newAliveSoldiers = int(math.ceil(float(defender.getArmyQuantity() * changes.newArmyHp) / defender.getArmyMaxHp()) if defender.getArmyMaxHp() else 0)
-    changes.newSoldiersDelta = int(changes.newAliveSoldiers - defender_alive_soldiers)
-
-    return changes
+    # Return snapshot
+    return  TurnSnapshot(defender_hero_damage_taken, defender_army_damage_taken)
 
 
 # damage = total_attack * adv_bonus * damage_distribution - total_defense
@@ -100,10 +85,11 @@ def calc_attack(atk_total, adv_bonus, skill_type, damage_type, def_archetype, bo
     return attack_randomized
 
 
-def apply_changes(changes, combatant):
-    combatant.setHp(changes.newHp)
-    combatant.setArmyHp(changes.newArmyHp)
-    combatant.setReceivedDmg(changes.newReceivedDmg)
-    combatant.setReceivedArmyDmg(changes.newReceivedArmyDmg)
-    combatant.setAliveSoldiers(changes.newAliveSoldiers)
-    combatant.setSoldiersDelta(changes.newSoldiersDelta)
+def apply_snapshot(snapshot, combatant):
+    combatant.setHp(int(max(0, combatant.getHp() - snapshot.receivedDmg)))
+    combatant.setArmyHp(int(max(0, combatant.getArmyHp() - snapshot.receivedArmyDmg)))
+    combatant.setReceivedDmg(snapshot.receivedDmg)
+    combatant.setReceivedArmyDmg(snapshot.receivedArmyDmg)
+    aliveSoldiers = combatant.getAliveSoldiers()
+    combatant.setAliveSoldiers(int(math.ceil(float(combatant.getArmyQuantity() * combatant.getArmyHp()) / combatant.getArmyMaxHp()) if combatant.getArmyMaxHp() else 0))
+    combatant.setSoldiersDelta(int(combatant.getAliveSoldiers() - aliveSoldiers))
