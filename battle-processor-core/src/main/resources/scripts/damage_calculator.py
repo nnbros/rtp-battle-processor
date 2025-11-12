@@ -14,7 +14,7 @@ class TurnSnapshot():
         return False
 
 
-def calculate_snapshot(attacker, defender):   
+def calculate_turn_snapshot(attacker, defender):   
     # Get attacker values
     attacker_skill = skill_dictionary[attacker.getActiveSkill()]
     attacker_hero_adv_bonus = attacker.getAdvantageBonus()
@@ -85,7 +85,7 @@ def calc_attack(atk_total, adv_bonus, skill_type, damage_type, def_archetype, bo
     return attack_randomized
 
 
-def apply_snapshot(snapshot, combatant):
+def apply_turn_snapshot(snapshot, combatant):
     combatant.setHp(int(max(0, combatant.getHp() - snapshot.receivedDmg)))
     combatant.setArmyHp(int(max(0, combatant.getArmyHp() - snapshot.receivedArmyDmg)))
     combatant.setReceivedDmg(snapshot.receivedDmg)

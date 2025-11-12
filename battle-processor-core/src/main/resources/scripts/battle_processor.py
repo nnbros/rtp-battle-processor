@@ -3,7 +3,7 @@ import math
 
 
 from com.github.nnbros.rtp.battleprocessor.core import DuelParticipants, Combatant
-from damage_calculator import calculate_snapshot, apply_snapshot
+from damage_calculator import calculate_turn_snapshot, apply_turn_snapshot
 from monster_ai import choose_monster_skill
 
 
@@ -182,10 +182,10 @@ def calculate_duel_turn(duel_participants):
             combatant.setActiveSkill(choose_monster_skill(combatant))
             
     # Calculate whats happened
-    snapshot1 = calculate_snapshot(combatant2, combatant1)
-    snapshot2 = calculate_snapshot(combatant1, combatant2)
+    snapshot1 = calculate_turn_snapshot(combatant2, combatant1)
+    snapshot2 = calculate_turn_snapshot(combatant1, combatant2)
         
     # Apply snapshots
-    apply_snapshot(snapshot1, combatant1)
-    apply_snapshot(snapshot2, combatant2)
+    apply_turn_snapshot(snapshot1, combatant1)
+    apply_turn_snapshot(snapshot2, combatant2)
     
