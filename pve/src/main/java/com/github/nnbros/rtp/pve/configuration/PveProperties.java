@@ -15,8 +15,6 @@ public class PveProperties {
 	@NotNull
 	private Api api = new Api();
 	@NotNull
-	private RTPBot rtpBot = new RTPBot();
-	@NotNull
 	private ThreadPool actionProcessorThreadPool = new ThreadPool();
 	@NotNull
 	private Battle battle = new Battle();
@@ -42,13 +40,6 @@ public class PveProperties {
 		private String baseUrl = "/api/v1";
 		@URL
 		private String actionsEndpointPrefix = "/actions";
-	}
-
-	@Setter
-	@Getter
-	public static class RTPBot {
-		@NotBlank
-		private String token;
 	}
 
 	@Setter

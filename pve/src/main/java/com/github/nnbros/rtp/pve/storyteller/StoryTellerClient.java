@@ -1,6 +1,6 @@
 package com.github.nnbros.rtp.pve.storyteller;
 
-import com.github.nnbros.rtp.pve.api.view.DetailedCharacterWithSkillsView;
+import com.github.nnbros.rtp.common.api.dto.character.DetailedCharacterWithSkillsView;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

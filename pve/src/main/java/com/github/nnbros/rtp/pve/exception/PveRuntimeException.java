@@ -1,15 +1,17 @@
 package com.github.nnbros.rtp.pve.exception;
 
-public class PveRuntimeException extends RuntimeException {
+import com.github.nnbros.rtp.common.exception.RtpRuntimeException;
+
+public class PveRuntimeException extends RtpRuntimeException {
 	public PveRuntimeException() {
 	}
 
 	public PveRuntimeException(String message, Object... params) {
-		super(message.formatted(params));
+		super(message, params);
 	}
 
 	public PveRuntimeException(String message, Throwable cause, Object... params) {
-		super(message.formatted(params), cause);
+		super(message, cause, params);
 	}
 
 	public PveRuntimeException(Throwable cause) {

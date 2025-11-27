@@ -2,13 +2,13 @@ package com.github.nnbros.rtp.pve.action.battle;
 
 import com.github.nnbros.rtp.battleprocessor.core.BattleProcessor;
 import com.github.nnbros.rtp.battleprocessor.core.DuelParticipantsImpl;
+import com.github.nnbros.rtp.common.action.ActionContext;
+import com.github.nnbros.rtp.common.action.ActionResult;
+import com.github.nnbros.rtp.common.api.dto.character.DetailedCharacterWithSkillsView;
+import com.github.nnbros.rtp.common.exception.CharacterNotFoundException;
 import com.github.nnbros.rtp.pve.PveTest;
-import com.github.nnbros.rtp.pve.action.ActionContext;
-import com.github.nnbros.rtp.pve.action.ActionResult;
-import com.github.nnbros.rtp.pve.api.view.DetailedCharacterWithSkillsView;
 import com.github.nnbros.rtp.pve.configuration.PveProperties;
 import com.github.nnbros.rtp.pve.exception.BattleNotFoundException;
-import com.github.nnbros.rtp.pve.exception.CharacterNotFoundException;
 import com.github.nnbros.rtp.pve.exception.PveRuntimeException;
 import com.github.nnbros.rtp.pve.monster.MonsterService;
 import com.github.nnbros.rtp.pve.storyteller.StoryTellerClient;
@@ -19,6 +19,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -40,6 +41,10 @@ public class BattleServiceTest extends PveTest {
 	StoryTellerClient storyTellerClient;
 	@Mock
 	BattleProcessor battleProcessor;
+	@Spy
+	CharacterMapper characterMapper = new CharacterMapper();
+	@Spy
+	MonsterMapper monsterMapper = new MonsterMapper();
 
 	@InjectMocks
 	BattleService battleService;

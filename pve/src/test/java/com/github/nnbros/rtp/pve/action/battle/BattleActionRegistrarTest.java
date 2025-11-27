@@ -1,9 +1,9 @@
 package com.github.nnbros.rtp.pve.action.battle;
 
+import com.github.nnbros.rtp.common.action.ActionContext;
+import com.github.nnbros.rtp.common.action.ActionPipeline;
+import com.github.nnbros.rtp.common.action.ActionResult;
 import com.github.nnbros.rtp.pve.PveTest;
-import com.github.nnbros.rtp.pve.action.ActionContext;
-import com.github.nnbros.rtp.pve.action.ActionPipeline;
-import com.github.nnbros.rtp.pve.action.ActionResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

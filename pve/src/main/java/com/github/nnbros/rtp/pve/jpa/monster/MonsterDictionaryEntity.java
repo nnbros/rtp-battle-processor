@@ -1,6 +1,6 @@
 package com.github.nnbros.rtp.pve.jpa.monster;
 
-import com.github.nnbros.rtp.pve.monster.Archetype;
+import com.github.nnbros.rtp.common.api.dto.character.Archetype;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

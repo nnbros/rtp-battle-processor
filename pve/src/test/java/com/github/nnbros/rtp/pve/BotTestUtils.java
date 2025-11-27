@@ -2,12 +2,11 @@ package com.github.nnbros.rtp.pve;
 
 import com.github.nnbros.rtp.battleprocessor.core.CombatantImpl;
 import com.github.nnbros.rtp.battleprocessor.core.DuelParticipantsImpl;
+import com.github.nnbros.rtp.common.action.ActionContext;
+import com.github.nnbros.rtp.common.api.dto.character.*;
+import com.github.nnbros.rtp.common.telegram.UpdateType;
 import com.github.nnbros.rtp.pve.action.battle.Battle;
-import com.github.nnbros.rtp.pve.action.ActionContext;
-import com.github.nnbros.rtp.pve.api.view.*;
-import com.github.nnbros.rtp.pve.monster.Archetype;
 import com.github.nnbros.rtp.pve.monster.MonsterDictionary;
-import com.github.nnbros.rtp.pve.telegram.UpdateType;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -17,7 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.message.Message;
 
 import java.util.List;
 
-import static com.github.nnbros.rtp.pve.monster.Archetype.SWORDSMAN;
+import static com.github.nnbros.rtp.common.api.dto.character.Archetype.SWORDSMAN;
 
 public class BotTestUtils {
 	public static final String TEST_ACTION_NAME = "test_action";

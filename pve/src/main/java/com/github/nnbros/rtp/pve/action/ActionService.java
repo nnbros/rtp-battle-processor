@@ -1,9 +1,13 @@
 package com.github.nnbros.rtp.pve.action;
 
+import com.github.nnbros.rtp.common.action.ActionContext;
+import com.github.nnbros.rtp.common.action.ActionErrorProcessor;
+import com.github.nnbros.rtp.common.action.ActionPipeline;
+import com.github.nnbros.rtp.common.action.ActionRegistrar;
+import com.github.nnbros.rtp.common.telegram.UpdateType;
 import com.github.nnbros.rtp.pve.exception.ActionNotFoundException;
 import com.github.nnbros.rtp.pve.exception.PveException;
 import com.github.nnbros.rtp.pve.gateway.GatewayClient;
-import com.github.nnbros.rtp.pve.telegram.UpdateType;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.github.nnbros.rtp.pve.telegram.BotUtils.getMessageId;
-import static com.github.nnbros.rtp.pve.telegram.BotUtils.getUserId;
+import static com.github.nnbros.rtp.common.util.BotUtils.getMessageId;
+import static com.github.nnbros.rtp.common.util.BotUtils.getUserId;
 
 @Slf4j
 @Service
