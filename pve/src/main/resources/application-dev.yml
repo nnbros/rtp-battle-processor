@@ -7,9 +7,9 @@ spring:
             maxLifeTime: 300000  # 5 min
             keepAliveTime: 30000  # 30 sec
             connectionTimeout: 30000  # 30 sec
-        url: jdbc:postgresql://213.177.120.46:2219/rtp
+        url: jdbc:postgresql://localhost:5432/rtp
         username: pve
-        password: ngDfDesD2F34prmy4vyt
+        password: pve
         driver-class-name: org.postgresql.Driver
     liquibase:
         drop-first: false
