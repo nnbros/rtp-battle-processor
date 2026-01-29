@@ -55,6 +55,7 @@ server.port: 8090
 #####
 # Main StoryTeller settings
 #####
+rtp-bot.token: ${RTP_BOT_TOKEN}
 pve:
     action-processor-thread-pool:
         min: 10
@@ -65,12 +66,11 @@ pve:
     api:
         base-url: "/api/v1"
         actions-endpoint-prefix: "/actions"
-    rtp-bot.token: ${RTP_BOT_TOKEN}
     battle:
         max-active-skills: 3
 
 battle-processor.scripts-path: "classpath:/app/scripts"
-elements.working-directory: "classpath:/config/ui/elements"
+telegram.elements.working-directory: "classpath:/config/ui/elements"
 
 #####
 # Logging settings

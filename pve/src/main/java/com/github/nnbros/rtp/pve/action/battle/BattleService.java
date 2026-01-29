@@ -1,16 +1,13 @@
 package com.github.nnbros.rtp.pve.action.battle;
 
-import com.github.nnbros.rtp.battleprocessor.core.BattleProcessor;
-import com.github.nnbros.rtp.battleprocessor.core.Combatant;
-import com.github.nnbros.rtp.battleprocessor.core.DuelParticipants;
-import com.github.nnbros.rtp.battleprocessor.core.DuelParticipantsImpl;
-import com.github.nnbros.rtp.pve.action.ActionContext;
-import com.github.nnbros.rtp.pve.action.ActionResult;
-import com.github.nnbros.rtp.pve.api.view.ActiveCharacterSkill;
-import com.github.nnbros.rtp.pve.api.view.DetailedCharacterWithSkillsView;
+import com.github.nnbros.rtp.battleprocessor.core.*;
+import com.github.nnbros.rtp.common.action.ActionContext;
+import com.github.nnbros.rtp.common.action.ActionResult;
+import com.github.nnbros.rtp.common.api.dto.character.ActiveCharacterSkill;
+import com.github.nnbros.rtp.common.api.dto.character.DetailedCharacterWithSkillsView;
+import com.github.nnbros.rtp.common.exception.CharacterNotFoundException;
 import com.github.nnbros.rtp.pve.configuration.PveProperties;
 import com.github.nnbros.rtp.pve.exception.BattleNotFoundException;
-import com.github.nnbros.rtp.pve.exception.CharacterNotFoundException;
 import com.github.nnbros.rtp.pve.exception.PveRuntimeException;
 import com.github.nnbros.rtp.pve.monster.MonsterDictionary;
 import com.github.nnbros.rtp.pve.monster.MonsterService;
@@ -32,6 +29,8 @@ public class BattleService {
 	private final MonsterService monsterService;
 	private final StoryTellerClient storyTellerClient;
 	private final BattleProcessor battleProcessor;
+	private final CharacterMapper characterMapper;
+	private final MonsterMapper monsterMapper;
 	private final ConcurrentHashMap<Long, Battle> battleCache = new ConcurrentHashMap<>();
 
 	public ActionResult<Battle> initiateBattle(ActionContext actionContext) {
@@ -46,7 +45,7 @@ public class BattleService {
 				.stream()
 				.map(ActiveCharacterSkill::name)
 				.toList();
-		DuelParticipantsImpl duelParticipants = new DuelParticipantsImpl(character.toCombatant(), monster.toCombatant());
+		DuelParticipantsImpl duelParticipants = new DuelParticipantsImpl(characterMapper.toCombatant(character), monsterMapper.toCombatant(monster));
 
 		Battle battle = Battle.builder()
 				.battleId(battleId.incrementAndGet())
@@ -99,10 +98,10 @@ public class BattleService {
 
 	private boolean isBattleFinished(Battle battle) {
 		DuelParticipants participants = battle.getDuelParticipants();
-		Combatant first  = participants.getFirstCombatant();
+		Combatant first = participants.getFirstCombatant();
 		Combatant second = participants.getSecondCombatant();
 		Combatant character = first.isCharacter() ? first : second;
-		Combatant monster   = first.isCharacter() ? second : first;
+		Combatant monster = first.isCharacter() ? second : first;
 
 		int characterHp = character.getHp();
 		int monsterHp = monster.getHp();

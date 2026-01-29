@@ -1,6 +1,6 @@
 package com.github.nnbros.rtp.pve.action.battle;
 
-import com.github.nnbros.rtp.pve.action.Action;
+import com.github.nnbros.rtp.common.action.Action;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

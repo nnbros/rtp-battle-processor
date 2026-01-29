@@ -1,6 +1,6 @@
 package com.github.nnbros.rtp.pve.monster;
 
-import com.github.nnbros.rtp.battleprocessor.core.CombatantImpl;
+import com.github.nnbros.rtp.common.api.dto.character.Archetype;
 
 public record MonsterDictionary(Integer id,
 								String name,
@@ -15,25 +15,4 @@ public record MonsterDictionary(Integer id,
 								Integer armyBaseAtk,
 								Integer armyBaseDef,
 								Integer armyTier) {
-
-	public CombatantImpl toCombatant() {
-		int armyMaxHp = armyBaseHp * armyBaseQuantity;
-		return CombatantImpl.builder()
-				.entityName(name)
-				.archetype(type.name())
-				.isCharacter(false)
-				.maxHp(baseHp)
-				.hp(baseHp)
-				.atk(baseAtk)
-				.def(baseDef)
-				.armyName(armyName)
-				.armyArchetype(armyType.name())
-				.armyMaxHp(armyMaxHp)
-				.armyHp(armyMaxHp)
-				.armyAtk(armyBaseAtk)
-				.armyDef(armyBaseDef)
-				.armyQuantity(armyBaseQuantity)
-				.aliveSoldiers(armyBaseQuantity)
-				.build();
-	}
 }
